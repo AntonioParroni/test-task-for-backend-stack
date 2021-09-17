@@ -9,9 +9,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f5cf794f-8966-4006-b383-91952e7846ec" name="Changes" comment="Contoso Pizza :)">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.test-task-for-backend-stack.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.test-task-for-backend-stack.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Models/Contoso_Authentication_LogsContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Models/ApplicationContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Server.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Server.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Models/ApplicationContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Models/ApplicationContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Server/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +81,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1631892168392</updated>
-      <workItem from="1631892173017" duration="4241000" />
+      <workItem from="1631892173017" duration="4613000" />
     </task>
     <task id="LOCAL-00001" summary="Contoso Pizza :)">
       <created>1631892266339</created>
