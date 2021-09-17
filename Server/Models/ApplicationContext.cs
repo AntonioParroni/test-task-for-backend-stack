@@ -6,15 +6,16 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Server.Models
 {
-    public partial class Contoso_Authentication_LogsContext : DbContext
+    public partial class ApplicationContext : DbContext
     {
-        public Contoso_Authentication_LogsContext()
+        public ApplicationContext()
         {
         }
 
-        public Contoso_Authentication_LogsContext(DbContextOptions<Contoso_Authentication_LogsContext> options)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
+            Database.EnsureCreated();
         }
 
         public virtual DbSet<ConcurrentSessionsEveryHour> ConcurrentSessionsEveryHours { get; set; }
@@ -30,7 +31,8 @@ namespace Server.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+
+                #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=localhost;Database=Contoso_Authentication_Logs;User Id=sa;Password=Password123;");
             }
         }
