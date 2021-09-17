@@ -1,0 +1,23 @@
+{
+  "name": "test-task-for-backend-stack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AntonioParroni/test-task-for-backend-stack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AntonioParroni/test-task-for-backend-stack/issues"
+  },
+  "homepage": "https://github.com/AntonioParroni/test-task-for-backend-stack#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
