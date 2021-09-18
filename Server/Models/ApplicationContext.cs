@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -16,7 +15,6 @@ namespace Server.Models
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
         }
 
         public virtual DbSet<ConcurrentSessionsEveryHour> ConcurrentSessionsEveryHours { get; set; }
@@ -32,30 +30,32 @@ namespace Server.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-
-                #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=localhost;Database=Contoso_Authentication_Logs;User Id=sa;Password=Password123;");
-                
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
             modelBuilder.Entity<ConcurrentSessionsEveryHour>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("ConcurrentSessionsEveryHour");
 
-                entity.HasIndex(e => e.Hour, "UQ__Concurre__6D0E39A478045F65")
+                entity.HasIndex(e => e.Hour, "UQ__Concurre__6D0E39A45D2E4F6F")
                     .IsUnique();
+
+                entity.Property(e => e.ConcurrentSessionsEveryHourId).HasColumnName("ConcurrentSessionsEveryHourID");
 
                 entity.Property(e => e.Hour).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<ConcurrentUniqueSessionsWithMultipleDevice>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.ConcurrentUniqueSessionsWithMultipleDevicesId)
+                    .HasName("PK__Concurre__C7A3CA1573F9BE3B");
+
+                entity.Property(e => e.ConcurrentUniqueSessionsWithMultipleDevicesId).HasColumnName("ConcurrentUniqueSessionsWithMultipleDevicesID");
 
                 entity.Property(e => e.DeviceName).HasMaxLength(50);
 
@@ -69,7 +69,7 @@ namespace Server.Models
             modelBuilder.Entity<DeviceType>(entity =>
             {
                 entity.HasKey(e => e.DeviceId)
-                    .HasName("PK__DeviceTy__49E12331A9DBC7E6");
+                    .HasName("PK__DeviceTy__49E12331C70483BE");
 
                 entity.Property(e => e.DeviceId)
                     .ValueGeneratedOnAdd()
@@ -89,47 +89,47 @@ namespace Server.Models
 
             modelBuilder.Entity<RegistrationCountByDevicesAndMonth>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("RegistrationCountByDevicesAndMonth");
 
+                entity.Property(e => e.RegistrationCountByDevicesAndMonthId).HasColumnName("RegistrationCountByDevicesAndMonthID");
+
                 entity.HasOne(d => d.DeviceTypeNavigation)
-                    .WithMany()
+                    .WithMany(p => p.RegistrationCountByDevicesAndMonths)
                     .HasForeignKey(d => d.DeviceType)
-                    .HasConstraintName("FK__Registrat__Devic__2A4B4B5E");
+                    .HasConstraintName("FK__Registrat__Devic__2C3393D0");
 
                 entity.HasOne(d => d.MonthNavigation)
-                    .WithMany()
+                    .WithMany(p => p.RegistrationCountByDevicesAndMonths)
                     .HasForeignKey(d => d.Month)
-                    .HasConstraintName("FK__Registrat__Month__29572725");
+                    .HasConstraintName("FK__Registrat__Month__2B3F6F97");
             });
 
             modelBuilder.Entity<RegistrationCountByMonth>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("RegistrationCountByMonth");
 
+                entity.Property(e => e.RegistrationCountByMonthId).HasColumnName("RegistrationCountByMonthID");
+
                 entity.HasOne(d => d.MonthNavigation)
-                    .WithMany()
+                    .WithMany(p => p.RegistrationCountByMonths)
                     .HasForeignKey(d => d.Month)
-                    .HasConstraintName("FK__Registrat__Month__276EDEB3");
+                    .HasConstraintName("FK__Registrat__Month__286302EC");
             });
 
             modelBuilder.Entity<TotalSessionDurationByHour>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("TotalSessionDurationByHour");
+
+                entity.Property(e => e.TotalSessionDurationByHourId).HasColumnName("TotalSessionDurationByHourID");
 
                 entity.Property(e => e.Date).HasColumnType("date");
             });
 
             modelBuilder.Entity<UniqueCountriesByDay>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("UniqueCountriesByDay");
+
+                entity.Property(e => e.UniqueCountriesByDayId).HasColumnName("UniqueCountriesByDayID");
 
                 entity.Property(e => e.Country).HasMaxLength(30);
 
