@@ -6,12 +6,12 @@ use Contoso_Authentication_Logs
 go
 create table Months
 (
-  MonthID tinyint primary key identity,
-  MonthName nvarchar(20)
+    MonthID tinyint primary key identity,
+    MonthName nvarchar(20)
 )
 go
 INSERT Months VALUES
- ('January')
+('January')
 ,('February')
 ,('March')
 ,('April')
@@ -26,28 +26,30 @@ INSERT Months VALUES
 go
 create table DeviceTypes
 (
-  DeviceID tinyint primary key identity,
-  DeviceName nvarchar(20)
+    DeviceID tinyint primary key identity,
+    DeviceName nvarchar(20)
 )
 go
 INSERT DeviceTypes VALUES
- ('Laptop')
+('Laptop')
 ,('Mobile Phone')
 ,('Tablet')
 go
 
 create table RegistrationCountByMonth
 (
+    RegistrationCountByMonthID int primary key identity,
     Year smallint,
     Month tinyint,
     NumberOfUsers int
 )
 go
 alter table RegistrationCountByMonth
-add foreign key (Month) references Months(MonthID)
+    add foreign key (Month) references Months(MonthID)
 go
 create table RegistrationCountByDevicesAndMonth
 (
+    RegistrationCountByDevicesAndMonthID int primary key identity,
     Year smallint,
     Month tinyint,
     DeviceType tinyint,
@@ -55,17 +57,19 @@ create table RegistrationCountByDevicesAndMonth
 )
 go
 alter table RegistrationCountByDevicesAndMonth
-add foreign key (Month) references Months(MonthID),
-    foreign key (DeviceType) references DeviceTypes(DeviceID)
+    add foreign key (Month) references Months(MonthID),
+        foreign key (DeviceType) references DeviceTypes(DeviceID)
 go
 create table ConcurrentSessionsEveryHour
 (
+    ConcurrentSessionsEveryHourID int primary key identity,
     Hour datetime unique,
     NumberOfUsers int
 )
 go
 create table ConcurrentUniqueSessionsWithMultipleDevices
 (
+    ConcurrentUniqueSessionsWithMultipleDevicesID int primary key identity,
     UserName nvarchar(50),
     DeviceName nvarchar(50),
     LoginTS datetime
@@ -73,6 +77,7 @@ create table ConcurrentUniqueSessionsWithMultipleDevices
 go
 create table TotalSessionDurationByHour
 (
+    TotalSessionDurationByHourID int primary key identity,
     Date date,
     Hour tinyint,
     TotalSessionDurationForHourInMins int,
@@ -81,6 +86,7 @@ create table TotalSessionDurationByHour
 go
 create table UniqueCountriesByDay
 (
+    UniqueCountriesByDayID int primary key identity,
     UserName nvarchar(50),
     Country nvarchar(30),
     LoginTS datetime
