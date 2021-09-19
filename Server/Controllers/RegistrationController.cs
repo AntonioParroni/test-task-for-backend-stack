@@ -25,34 +25,22 @@ namespace Server.Controllers
                 using (ApplicationContext context = new ApplicationContext())
                 {
                     var crudeInfoByMonth = context.RegistrationCountByMonths.ToList();
-                    var crudeInfoByDeviceAndMonth = context.RegistrationCountByDevicesAndMonths.ToList();
-
-                    if (crudeInfoByMonth.Count != 0 && crudeInfoByDeviceAndMonth.Count != 0)
+                    if (crudeInfoByMonth.Count != 0)
                     {
-                        List<CleanByMonth> lst = new List<CleanByMonth>();
+                        List<CleanByMonth> infoListToReturn = new List<CleanByMonth>();
                         foreach (var crudeInfo in crudeInfoByMonth)
                         {
-                            CleanByMonth item = new CleanByMonth();
-                            item.Year = crudeInfo.Year;
-                            item.Month = crudeInfo.Month;
-                            item.NumberOfUsers = crudeInfo.NumberOfUsers;
-                            lst.Add(item);
+                            CleanByMonth item = new CleanByMonth
+                            {
+                                Year = crudeInfo.Year,
+                                Month = crudeInfo.Month,
+                                NumberOfUsers = crudeInfo.NumberOfUsers
+                            };
+                            infoListToReturn.Add(item);
                         }
-
-                        // List<Provision> prov = new List<Provision>();
-                        // foreach (var info in lst)
-                        // {
-                        //     Provision ita = new Provision();
-                        //     var smth = context.RegistrationCountByDevicesAndMonths.Where(x =>
-                        //         x.Year == info.Year && x.Month == info.Month);
-                        //     
-                        // }
-                        
-                        return new JsonResult(lst);
+                        return new JsonResult(infoListToReturn);
                     }
                 }
-                // { year: 2021, month: 7, registeredUsers: 32, registeredDevices: [{ type: “laptop”, value: “15”}, { type: “mobile phone”,
-                //     value: “8”,}, { type: “tablet”, value: “9”},] }
                 return new JsonResult(null);;
             }
 
@@ -68,10 +56,14 @@ namespace Server.Controllers
                     return StatusCode(400);
                 if (!Enumerable.Range(2020,2021).Contains(year)) // check for a valid year
                     return StatusCode(400);
-                
+
+                using (ApplicationContext context = new ApplicationContext())
+                {
+                    var crudeInfoByDeviceAndMonth = context.RegistrationCountByDevicesAndMonths.ToList();
+                    // { year: 2021, month: 7, registeredUsers: 32, registeredDevices: [{ type: “laptop”, value: “15”}, { type: “mobile phone”,
+                    //     value: “8”,}, { type: “tablet”, value: “9”},] }
+                }
                 string str = "Year: " + year + " Month: " + month;
-                
-                
                 return new JsonResult(str);
             }
 

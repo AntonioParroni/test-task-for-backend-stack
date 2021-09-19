@@ -9,59 +9,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7bdf5cb5-d15d-46c0-bcde-9df92ff247fd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../MS SQL/DBinit.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../MS SQL/DBinit.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/WeatherForecastController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/WeatherForecastController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/ApplicationContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/ApplicationContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/ConcurrentSessionsEveryHour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/ConcurrentSessionsEveryHour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/ConcurrentUniqueSessionsWithMultipleDevice.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/ConcurrentUniqueSessionsWithMultipleDevice.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/DeviceType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/DeviceType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/Month.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Month.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/RegistrationCountByDevicesAndMonth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/RegistrationCountByDevicesAndMonth.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/RegistrationCountByMonth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/RegistrationCountByMonth.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/TotalSessionDurationByHour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/TotalSessionDurationByHour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/UniqueCountriesByDay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/UniqueCountriesByDay.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.test-task-for-backend-stack.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.test-task-for-backend-stack.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/RegistrationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/RegistrationController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Server.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Startup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeatherForecast.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WeatherForecast.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/appsettings.Development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/EntityFramework.SqlServer.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/EntityFramework.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Abstractions.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Abstractions.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Design.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Design.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Relational.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Relational.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.SqlServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.SqlServer.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/Server.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/Server.deps.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/Server.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/Server.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/Server.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/Server.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/System.CodeDom.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/System.Data.SqlClient.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/appsettings.Development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/appsettings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/ref/Server.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/ref/Server.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/runtimes/win-arm64/native/sni.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/runtimes/win-x64/native/sni.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/runtimes/win-x86/native/sni.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/runtimes/win/lib/netcoreapp2.1/System.Data.SqlClient.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/Server.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/Server.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/Server.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/Server.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/Server.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/Server.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/Server.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/Server.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/Server.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/Server.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/Server.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/Server.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/ref/Server.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/ref/Server.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Server.csproj.EntityFrameworkCore.targets" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Server.csproj.EntityFrameworkCore.targets" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Server.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Server.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Server.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Server.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Server.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Server.csproj.nuget.g.targets" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +31,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Properties/launchSettings.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Startup.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/WeatherForecast.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Models/ApplicationContext.cs" root0="FORCE_HIGHLIGHTING" />
@@ -151,6 +109,9 @@
       <workItem from="1631983584867" duration="210000" />
       <workItem from="1631989534282" duration="1828000" />
       <workItem from="1631991584710" duration="1391000" />
+      <workItem from="1631993047705" duration="352000" />
+      <workItem from="1631995881742" duration="9267000" />
+      <workItem from="1632006960385" duration="11234000" />
     </task>
     <servers />
   </component>
