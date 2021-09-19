@@ -139,3 +139,8 @@ INSERT UniqueCountriesByDay VALUES
 ('John Doe','Switzerland','2021-07-01 17:35:18'),
 ('Kathy Johnson','Turkey','2021-07-01 18:11:23')
 
+CREATE VIEW QuantityOfTheDevicesPerMonth AS
+    SELECT ByMonth.Year, ByMonth.Month, DT.DeviceName, ByYear.NumberOfUsers FROM RegistrationCountByMonth ByMonth
+        INNER JOIN RegistrationCountByDevicesAndMonth ByYear ON ByMonth.Month = ByYear.Month AND ByMonth.Year = ByYear.Year
+        INNER JOIN DeviceTypes DT on DT.DeviceID = ByYear.DeviceType
+    WITH CHECK OPTION
