@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Server.Models;
 using Server.ViewModel;
@@ -14,9 +15,10 @@ namespace Server.Controllers
     [Route("/api/registration/bymonth")]
     public class RegistrationController : ControllerBase
     {
-            public RegistrationController()
+        private readonly ILogger<RegistrationController> _logger;
+            public RegistrationController(ILogger<RegistrationController> logger)
             {
-                
+                _logger = logger;
             }
             
             [HttpGet]

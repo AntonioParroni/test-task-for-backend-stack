@@ -11,7 +11,8 @@
     <list default="true" id="7bdf5cb5-d15d-46c0-bcde-9df92ff247fd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.test-task-for-backend-stack.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.test-task-for-backend-stack.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/RegistrationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/RegistrationController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Server.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/WeatherForecastController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeatherForecast.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/Server.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/Server.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/Server.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/Server.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/ref/Server.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/ref/Server.dll" afterDir="false" />
@@ -33,7 +34,6 @@
     <setting file="file://$PROJECT_DIR$/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Startup.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/WeatherForecast.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Models/ApplicationContext.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1yJUgMDXwFUwUnYgJmvBC2lpHIX" />
@@ -111,7 +111,7 @@
       <workItem from="1631991584710" duration="1391000" />
       <workItem from="1631993047705" duration="352000" />
       <workItem from="1631995881742" duration="9267000" />
-      <workItem from="1632006960385" duration="11234000" />
+      <workItem from="1632006960385" duration="11756000" />
     </task>
     <servers />
   </component>
