@@ -42,7 +42,7 @@ namespace Server.Controllers
                             };
                             infoListToReturn.Add(item);
                         }
-                        if (infoListToReturn.Count != 0)
+                        if (infoListToReturn.Count == 0)
                             return StatusCode(404);
                         return new JsonResult(infoListToReturn);
                     }
