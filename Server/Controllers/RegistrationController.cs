@@ -26,6 +26,8 @@ namespace Server.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
+                    if (!context.Database.CanConnect())
+                        return StatusCode(500);
                     var crudeInfoByMonth = context.RegistrationCountByMonths.ToList();
                     if (crudeInfoByMonth.Count != 0)
                     {
@@ -34,16 +36,18 @@ namespace Server.Controllers
                         {
                             CleanByMonth item = new CleanByMonth
                             {
-                                Year = crudeInfo.Year,
-                                Month = crudeInfo.Month,
-                                NumberOfUsers = crudeInfo.NumberOfUsers
+                                year = crudeInfo.Year,
+                                month = crudeInfo.Month,
+                                registeredUsers = crudeInfo.NumberOfUsers
                             };
                             infoListToReturn.Add(item);
                         }
+                        if (infoListToReturn.Count != 0)
+                            return StatusCode(404);
                         return new JsonResult(infoListToReturn);
                     }
                 }
-                return new JsonResult(null);;
+                return StatusCode(404);
             }
 
             [HttpGet("{id}")]
@@ -61,12 +65,37 @@ namespace Server.Controllers
 
                 using (ApplicationContext context = new ApplicationContext())
                 {
+                    if (!context.Database.CanConnect())
+                        return StatusCode(500);
                     var crudeInfoByDeviceAndMonth = context.RegistrationCountByDevicesAndMonths.ToList();
-                    // { year: 2021, month: 7, registeredUsers: 32, registeredDevices: [{ type: “laptop”, value: “15”}, { type: “mobile phone”,
-                    //     value: “8”,}, { type: “tablet”, value: “9”},] }
+                    if (crudeInfoByDeviceAndMonth.Count != 0)
+                    {
+                        CleanWithBoth returnInfo = new CleanWithBoth();
+                        returnInfo.year = (short)year;
+                        returnInfo.month = (byte)month;
+                        returnInfo.registeredUsers = 0;
+                        
+                        List<Provision> specificData = new List<Provision>();
+                        foreach (var dataSet in crudeInfoByDeviceAndMonth.
+                            Where(x => x.Year == year && x.Month == month))
+                        {
+                            Provision info = new Provision();
+                            info.type = context.DeviceTypes.First(c => c.DeviceId == dataSet.DeviceType.Value).DeviceName;
+                            info.value = dataSet.NumberOfUsers;
+                            specificData.Add(info);
+                            if (dataSet.NumberOfUsers != null)
+                            {
+                                returnInfo.registeredUsers += dataSet.NumberOfUsers.Value;
+                            }
+                        }
+                        returnInfo.registeredDevices = specificData;
+                        if (returnInfo.registeredUsers == 0)
+                            return StatusCode(404);
+                        return new JsonResult(returnInfo);
+                    }
                 }
-                string str = "Year: " + year + " Month: " + month;
-                return new JsonResult(str);
+                
+                return StatusCode(404);
             }
 
             // POST action

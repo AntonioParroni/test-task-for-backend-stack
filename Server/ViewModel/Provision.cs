@@ -4,7 +4,7 @@ namespace Server.ViewModel
 {
     public class Provision
     {
-        public DeviceType device { get; set; }
-        public int Count { get; set; }
+        public string type { get; set; }
+        public int? value { get; set; }
     }
 }

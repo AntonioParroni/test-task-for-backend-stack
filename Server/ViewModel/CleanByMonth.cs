@@ -5,9 +5,9 @@ namespace Server.ViewModel
 {
     public class CleanByMonth
     {
-        public short? Year { get; set; }
-        public byte? Month { get; set; }
-        public int? NumberOfUsers { get; set; }
+        public short? year { get; set; }
+        public byte? month { get; set; }
+        public int? registeredUsers { get; set; }
        
     }
 }
