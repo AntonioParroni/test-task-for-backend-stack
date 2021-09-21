@@ -34,14 +34,16 @@ namespace Server.Controllers
                         List<CleanByMonth> infoListToReturn = new List<CleanByMonth>();
                         foreach (var crudeInfo in crudeInfoByMonth)
                         {
-                            
-                            CleanByMonth item = new CleanByMonth
+                            if (crudeInfo.Month == DateTime.Today.Month)
                             {
-                                year = crudeInfo.Year,
-                                month = crudeInfo.Month,
-                                registeredUsers = crudeInfo.NumberOfUsers
-                            };
-                            infoListToReturn.Add(item);
+                                CleanByMonth item = new CleanByMonth
+                                {
+                                    year = crudeInfo.Year,
+                                    month = crudeInfo.Month,
+                                    registeredUsers = crudeInfo.NumberOfUsers
+                                };
+                                infoListToReturn.Add(item);
+                            }
                         }
                         if (infoListToReturn.Count == 0)
                             return StatusCode(404);
