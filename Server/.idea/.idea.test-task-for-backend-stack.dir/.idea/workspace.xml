@@ -9,12 +9,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7bdf5cb5-d15d-46c0-bcde-9df92ff247fd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Controllers/SessionController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ViewModel/BySessionHour.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ViewModel/GoodLookingSessionInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.test-task-for-backend-stack.dir/.idea/dataSources/019ea13b-2f34-4ccc-b57c-2868464de9d8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.test-task-for-backend-stack.dir/.idea/dataSources/019ea13b-2f34-4ccc-b57c-2868464de9d8.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.test-task-for-backend-stack.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.test-task-for-backend-stack.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/RegistrationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/RegistrationController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/SessionController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/SessionController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ViewModel/GoodLookingSessionInfo.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/Server.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/Server.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/Server.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/Server.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/ref/Server.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/ref/Server.dll" afterDir="false" />
@@ -32,11 +29,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d3a28d655bdb449aa2a84d0b716ee643951400/0a/6c318f32/Number.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Properties/launchSettings.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Startup.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e53f9279554744fca7116bf278b300681cd000/53/663ab314/ActionMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d3a28d655bdb449aa2a84d0b716ee643951400/70/664b1167/Int32.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Models/ApplicationContext.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1yJUgMDXwFUwUnYgJmvBC2lpHIX" />
@@ -118,6 +117,7 @@
       <workItem from="1632006960385" duration="13031000" />
       <workItem from="1632119160810" duration="13226000" />
       <workItem from="1632146181146" duration="10066000" />
+      <workItem from="1632204322558" duration="7927000" />
     </task>
     <servers />
   </component>
