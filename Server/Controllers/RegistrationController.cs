@@ -34,6 +34,7 @@ namespace Server.Controllers
                         List<CleanByMonth> infoListToReturn = new List<CleanByMonth>();
                         foreach (var crudeInfo in crudeInfoByMonth)
                         {
+                            
                             CleanByMonth item = new CleanByMonth
                             {
                                 year = crudeInfo.Year,
@@ -94,7 +95,6 @@ namespace Server.Controllers
                         return new JsonResult(returnInfo);
                     }
                 }
-                
                 return StatusCode(404);
             }
 
