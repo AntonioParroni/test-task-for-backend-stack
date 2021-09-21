@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using Server.Attributes;
 using Server.Models;
 using Server.ViewModel;
 
 namespace Server.Controllers
 {
+    [ApiKey]
     [ApiController]
     [Route("/api/registration/bymonth")]
     public class RegistrationController : ControllerBase
