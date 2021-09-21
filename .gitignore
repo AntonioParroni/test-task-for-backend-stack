@@ -7,12 +7,14 @@
 *.pdb
 *.test
 *.out
+*.DS_Store
 
 /.idea
 /Server/.idea
 /Server/bin
 /Server/obj
 /Server/obj/Debug/net6.0/
+
 
 **/bin/**
 **/obj/**
