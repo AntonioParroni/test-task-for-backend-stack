@@ -11,8 +11,7 @@ namespace Server.Helper
     {
         public object DoLogic(params object[] data)
         {
-            var context = new GenericRepository<RegistrationCountByMonth>(new ApplicationContext());
-            var crudeInfoByMonth = context.Get();
+            var crudeInfoByMonth = new GenericRepository<RegistrationCountByMonth>(new ApplicationContext()).Get();
             List<CleanByMonth> infoListToReturn = new List<CleanByMonth>();
             foreach (var crudeInfo in crudeInfoByMonth)
             {

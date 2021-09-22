@@ -27,35 +27,14 @@ namespace Server.Controllers
         {
             if (endTime == null && startTime == null) // no params case, return all
             {
-                using (ApplicationContext context = new ApplicationContext())
-                {
-                    if (!context.Database.CanConnect()) return StatusCode(500);
-                    Strategy newStrategy = new Strategy(new SessionReturnAll()); // logic selection
-                    var beautifulInfo = (List<BySessionHour>)newStrategy.Execute(context);
-                    return new JsonResult(beautifulInfo);
-                }
+                var beautifulInfo = (List<BySessionHour>)new Strategy(new SessionReturnAll()).Execute();
+                return new JsonResult(beautifulInfo);
             }
 
             if (endTime == null) // from query 
             {
-                DateTime fromTime;
-                try
-                {
-                    fromTime = startTime.ParseRequestTime();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    return StatusCode(400);
-                }
-
-                using (ApplicationContext context = new ApplicationContext())
-                {
-                    if (!context.Database.CanConnect()) return StatusCode(500);
-                    Strategy newStrategy = new Strategy(new SessionReturnFrom()); // logic selection
-                    var beautifulInfo = (List<BySessionHour>)newStrategy.Execute(context, fromTime);
-                    return new JsonResult(beautifulInfo);
-                }
+                var beautifulInfo = (List<BySessionHour>)new Strategy(new SessionReturnFrom()).Execute(startTime);
+                return new JsonResult(beautifulInfo);
             }
 
             if (startTime == null) // till query
