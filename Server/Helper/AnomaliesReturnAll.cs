@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using Server.DTO;
 using Server.Models;
 

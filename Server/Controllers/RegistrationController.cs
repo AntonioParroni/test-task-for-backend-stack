@@ -44,7 +44,7 @@ namespace Server.Controllers
             {
                 if (Math.Floor(Math.Log10(id) + 1) > 6) // check for six digits
                     return StatusCode(400);
-                int year = takeNDigits(id, 4);
+                int year = MySimpleMath.TakeNDigits(id, 4);
                 int month = int.Parse((id % 100).ToString().PadLeft(2, '0'));
                 
                 if (!Enumerable.Range(1,12).Contains(month)) // check for a valid month
@@ -72,16 +72,7 @@ namespace Server.Controllers
 
             // DELETE action
             
-            private static int takeNDigits(int number, int N)
-            {
-                number = Math.Abs(number);
-                if(number == 0)
-                    return number;
-                int numberOfDigits = (int)Math.Floor(Math.Log10(number) + 1);
-                if (numberOfDigits >= N)
-                    return (int)Math.Truncate((number / Math.Pow(10, numberOfDigits - N)));
-                return number;
-            }
+            
         
     }
 }

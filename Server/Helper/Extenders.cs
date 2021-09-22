@@ -10,5 +10,5 @@ namespace Server.Helper
                     int.Parse(str.Substring(11,2)), 0, 0);
                 return returnTime;
             }
-        }
+    }
 }
