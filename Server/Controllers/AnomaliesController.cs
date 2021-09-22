@@ -10,7 +10,6 @@ using Server.ViewModel;
 
 namespace Server.Controllers
 {
-    [ApiKey]
     [ApiController]
     [Route("/api/users/anomalies")]
     public class AnomaliesController : ControllerBase

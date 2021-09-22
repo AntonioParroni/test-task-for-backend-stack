@@ -9,7 +9,6 @@ using Server.ViewModel;
 
 namespace Server.Controllers
 {
-    [ApiKey]
     [ApiController]
     [Route("/api/registration/bymonth")]
     public class RegistrationController : ControllerBase

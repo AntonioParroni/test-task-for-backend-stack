@@ -10,7 +10,6 @@ using Server.ViewModel;
 
 namespace Server.Controllers
 {
-    [ApiKey]
     [ApiController]
     [Route("/api/sessions/byhour")]
     public class SessionController : ControllerBase

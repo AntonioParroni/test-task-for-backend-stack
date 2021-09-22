@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Server.Middleware;
 
 namespace Server
 {
@@ -46,6 +47,8 @@ namespace Server
             app.UseRouting();
 
             app.UseAuthorization();
+            
+            app.UseMiddleware<ApiKeyMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
