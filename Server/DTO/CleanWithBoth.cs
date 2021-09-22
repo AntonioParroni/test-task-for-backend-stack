@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using System.Dynamic;
 
-namespace Server.ViewModel
+namespace Server.DTO
 {
     public class CleanWithBoth
     {

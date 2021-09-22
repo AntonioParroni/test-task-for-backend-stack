@@ -1,6 +1,6 @@
 using System;
 
-namespace Server.ViewModel
+namespace Server.DTO
 {
     public class CleanConcurrentLogins
     {

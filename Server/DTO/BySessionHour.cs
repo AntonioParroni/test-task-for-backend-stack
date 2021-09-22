@@ -1,4 +1,4 @@
-namespace Server.ViewModel
+namespace Server.DTO
 {
     public class BySessionHour
     {

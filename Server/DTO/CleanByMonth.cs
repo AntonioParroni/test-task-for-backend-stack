@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-
-namespace Server.ViewModel
+namespace Server.DTO
 {
     public class CleanByMonth
     {

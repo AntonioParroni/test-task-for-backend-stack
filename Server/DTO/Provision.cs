@@ -1,6 +1,4 @@
-using Server.Models;
-
-namespace Server.ViewModel
+namespace Server.DTO
 {
     public class Provision
     {
