@@ -27,26 +27,22 @@ namespace Server.Controllers
         {
             if (endTime == null && startTime == null) // no params case, return all
             {
-                var beautifulInfo = (List<BySessionHour>)new Strategy(new SessionReturnAll()).Execute();
-                return new JsonResult(beautifulInfo);
+                return new JsonResult((List<BySessionHour>)new Strategy(new SessionReturnAll()).Execute());
             }
 
             if (endTime == null) // from query 
             {
-                var beautifulInfo = (List<BySessionHour>)new Strategy(new SessionReturnFrom()).Execute(startTime);
-                return new JsonResult(beautifulInfo);
+                return new JsonResult((List<BySessionHour>)new Strategy(new SessionReturnFrom()).Execute(startTime));
             }
 
             if (startTime == null) // till query
             {
-                var beautifulInfo = (List<BySessionHour>)new Strategy(new SessionReturnTill()).Execute(endTime);
-                return new JsonResult(beautifulInfo);
+                return new JsonResult((List<BySessionHour>)new Strategy(new SessionReturnTill()).Execute(endTime));
             }
 
             if (startTime != null && endTime != null) // range query
             {
-                var beautifulInfo = (List<BySessionHour>)new Strategy(new SessionReturnRange()).Execute(startTime, endTime);
-                return new JsonResult(beautifulInfo);
+                return new JsonResult((List<BySessionHour>)new Strategy(new SessionReturnRange()).Execute(startTime, endTime));
             }
 
             return new JsonResult(new JsonObject()); // empty result
