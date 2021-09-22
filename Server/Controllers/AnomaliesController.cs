@@ -24,8 +24,8 @@ namespace Server.Controllers
             using (ApplicationContext context = new ApplicationContext())
             {
                 if (!context.Database.CanConnect()) return StatusCode(500);
-                StrategyContext newStrategy = new StrategyContext(new AnomaliesReturnAll()); // logic selection
-                var beautifulInfo = (List<CleanConcurrentLogins>)newStrategy.DoSomeLogic(context);
+                Strategy newStrategy = new Strategy(new AnomaliesReturnAll()); // logic selection
+                var beautifulInfo = (List<CleanConcurrentLogins>)newStrategy.Execute(context);
                 return new JsonResult(beautifulInfo);
             }
         }

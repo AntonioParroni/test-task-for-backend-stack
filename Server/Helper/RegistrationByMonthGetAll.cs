@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Server.DAL;
 using Server.DTO;
 using Server.Models;
 
@@ -10,9 +11,10 @@ namespace Server.Helper
     {
         public object DoLogic(params object[] data)
         {
-            var okay = data[0] as List<RegistrationCountByMonth>;
+            var context = new GenericRepository<RegistrationCountByMonth>(new ApplicationContext());
+            var crudeInfoByMonth = context.Get();
             List<CleanByMonth> infoListToReturn = new List<CleanByMonth>();
-            foreach (var crudeInfo in okay)
+            foreach (var crudeInfo in crudeInfoByMonth)
             {
                 if (crudeInfo.Month == DateTime.Today.Month)
                 {

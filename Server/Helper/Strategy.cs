@@ -1,14 +1,14 @@
 namespace Server.Helper
 {
-    class StrategyContext
+    class Strategy
     {
         private IStrategy _strategy;
 
-        public StrategyContext()
+        public Strategy()
         {
         }
 
-        public StrategyContext(IStrategy strategy)
+        public Strategy(IStrategy strategy)
         {
             this._strategy = strategy;
         }
@@ -18,7 +18,7 @@ namespace Server.Helper
             this._strategy = strategy;
         }
 
-        public object DoSomeLogic(params object[] data)
+        public object Execute(params object[] data)
         {
             var result = this._strategy.DoLogic(data);
             return result;

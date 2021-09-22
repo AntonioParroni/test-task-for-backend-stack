@@ -30,8 +30,8 @@ namespace Server.Controllers
                 using (ApplicationContext context = new ApplicationContext())
                 {
                     if (!context.Database.CanConnect()) return StatusCode(500);
-                    StrategyContext newStrategy = new StrategyContext(new SessionReturnAll()); // logic selection
-                    var beautifulInfo = (List<BySessionHour>)newStrategy.DoSomeLogic(context);
+                    Strategy newStrategy = new Strategy(new SessionReturnAll()); // logic selection
+                    var beautifulInfo = (List<BySessionHour>)newStrategy.Execute(context);
                     return new JsonResult(beautifulInfo);
                 }
             }
@@ -52,8 +52,8 @@ namespace Server.Controllers
                 using (ApplicationContext context = new ApplicationContext())
                 {
                     if (!context.Database.CanConnect()) return StatusCode(500);
-                    StrategyContext newStrategy = new StrategyContext(new SessionReturnFrom()); // logic selection
-                    var beautifulInfo = (List<BySessionHour>)newStrategy.DoSomeLogic(context, fromTime);
+                    Strategy newStrategy = new Strategy(new SessionReturnFrom()); // logic selection
+                    var beautifulInfo = (List<BySessionHour>)newStrategy.Execute(context, fromTime);
                     return new JsonResult(beautifulInfo);
                 }
             }
@@ -74,8 +74,8 @@ namespace Server.Controllers
                 using (ApplicationContext context = new ApplicationContext())
                 {
                     if (!context.Database.CanConnect()) return StatusCode(500);
-                    StrategyContext newStrategy = new StrategyContext(new SessionReturnTill()); // logic selection
-                    var beautifulInfo = (List<BySessionHour>)newStrategy.DoSomeLogic(context, tillTime);
+                    Strategy newStrategy = new Strategy(new SessionReturnTill()); // logic selection
+                    var beautifulInfo = (List<BySessionHour>)newStrategy.Execute(context, tillTime);
                     return new JsonResult(beautifulInfo);
                 }
             }
@@ -99,8 +99,8 @@ namespace Server.Controllers
                 {
                     if (!context.Database.CanConnect()) return StatusCode(500);
                     Tuple<DateTime?, DateTime?> requestParameters = new Tuple<DateTime?, DateTime?>(fromTime, tillTime);
-                    StrategyContext newStrategy = new StrategyContext(new SessionReturnRange()); // // logic selection
-                    var beautifulInfo = (List<BySessionHour>)newStrategy.DoSomeLogic(context, requestParameters);
+                    Strategy newStrategy = new Strategy(new SessionReturnRange()); // // logic selection
+                    var beautifulInfo = (List<BySessionHour>)newStrategy.Execute(context, requestParameters);
                     return new JsonResult(beautifulInfo);
                 }
             }
