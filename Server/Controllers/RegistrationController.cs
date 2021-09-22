@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Server.Models;
 using Server.DTO;
+using Server.Helper;
 
 namespace Server.Controllers
 {
@@ -28,20 +29,8 @@ namespace Server.Controllers
                     var crudeInfoByMonth = context.RegistrationCountByMonths.ToList();
                     if (crudeInfoByMonth.Count != 0)
                     {
-                        List<CleanByMonth> infoListToReturn = new List<CleanByMonth>();
-                        foreach (var crudeInfo in crudeInfoByMonth)
-                        {
-                            if (crudeInfo.Month == DateTime.Today.Month)
-                            {
-                                CleanByMonth item = new CleanByMonth
-                                {
-                                    year = crudeInfo.Year,
-                                    month = crudeInfo.Month,
-                                    registeredUsers = crudeInfo.NumberOfUsers
-                                };
-                                infoListToReturn.Add(item);
-                            }
-                        }
+                        StrategyContext context1 = new StrategyContext(new RegistrationByMonthGetAll()); // setting the correct strategy
+                        var infoListToReturn = (List<CleanByMonth>)context1.DoSomeBusinessLogic(crudeInfoByMonth); 
                         if (infoListToReturn.Count == 0)
                             return BadRequest(404);
                         return new JsonResult(infoListToReturn);
