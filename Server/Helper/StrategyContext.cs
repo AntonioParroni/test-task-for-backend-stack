@@ -22,9 +22,9 @@ namespace Server.Helper
             this._strategy = strategy;
         }
 
-        public object DoSomeBusinessLogic(params object[] data)
+        public object DoSomeLogic(params object[] data)
         {
-            var result = this._strategy.DoAlgorithm(data);
+            var result = this._strategy.DoLogic(data);
             return result;
         }
     }

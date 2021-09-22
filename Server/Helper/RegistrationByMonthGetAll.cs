@@ -8,7 +8,7 @@ namespace Server.Helper
 {
     public class RegistrationByMonthGetAll : IStrategy
     {
-        public object DoAlgorithm(params object[] data)
+        public object DoLogic(params object[] data)
         {
             var okay = data[0] as List<RegistrationCountByMonth>;
             List<CleanByMonth> infoListToReturn = new List<CleanByMonth>();

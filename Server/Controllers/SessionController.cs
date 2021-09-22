@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Server.Models;
 using Server.DTO;
+using Server.Helper;
 
 namespace Server.Controllers
 {
@@ -29,35 +30,8 @@ namespace Server.Controllers
                     {
                         if (!context.Database.CanConnect())
                             return StatusCode(500);
-                        var crudeReturnInfo = context.TotalSessionDurationByHours.ToList();
-                        var parsedInfo = crudeReturnInfo.
-                            Select(x => new 
-                                { x.Date , x.Hour, x.TotalSessionDurationForHourInMins, x.TotalSessionDuration}).ToList();
-                        if (parsedInfo.Count == 0)
-                            return StatusCode(404);
-                        List<BySessionHour> beautifulInfo = new List<BySessionHour>();
-                        foreach (var info in parsedInfo) // parseIntoExpectedOutput
-                        {
-                            BySessionHour value = new BySessionHour();
-                            string dateStr = info.Date.ToString().Remove(10);
-                            int year = int.Parse(dateStr.Substring(dateStr.Length - 4));
-                            int month = int.Parse(dateStr.Substring(0, 2));
-                            int day = int.Parse(dateStr.Substring(3, 2));
-                            dateStr = dateStr.Substring(dateStr.Length - 4) + "-" + dateStr.Substring(0,2) + "-" + dateStr.Substring(3,2);
-                            value.date = dateStr;
-                            value.hour = info.Hour;
-                            value.qumulativeForHour = info.TotalSessionDurationForHourInMins;
-                            value.totalTimeForHour = info.TotalSessionDuration;
-                            
-                            DateTime oldTime = new DateTime(year, month, day, (int)info.Hour, 0, 0); // this is the only way..
-                            
-                            int? conccurentSessions = context.ConcurrentSessionsEveryHours
-                                .Where(x => x.Hour == oldTime)
-                                .Select(x => x.NumberOfUsers).FirstOrDefault();
-                            value.conccurentSessions = conccurentSessions;
-                            
-                            beautifulInfo.Add(value);
-                        }
+                        StrategyContext newStrategy = new StrategyContext(new SessionReturnAll());
+                        var beautifulInfo = (List<BySessionHour>)newStrategy.DoSomeLogic(context);
                         return new JsonResult(beautifulInfo);
                     }
                 }
@@ -82,52 +56,8 @@ namespace Server.Controllers
                     {
                         if (!context.Database.CanConnect())
                             return StatusCode(500);
-                        var crudeReturnInfo = context.TotalSessionDurationByHours.ToList();
-
-                        DateTime onlyDate = new DateTime(fromTime.Year, fromTime.Month, fromTime.Day);
-                        int hour = fromTime.Hour;
-                        
-                        var parsedInfo = crudeReturnInfo.
-                            Select(x => new 
-                                {x.Date , x.Hour, x.TotalSessionDurationForHourInMins, x.TotalSessionDuration}).
-                            Where(x => x.Date == onlyDate && x.Hour >= hour || x.Date > onlyDate).ToList(); // oh my gosh
-
-                        if (parsedInfo.Count == 0)
-                        {
-                            var emptyResult = new JObject();
-                            return new JsonResult(emptyResult);
-                            // return StatusCode(404);
-                        }
-                           
-                        List<BySessionHour> beautifulInfo = new List<BySessionHour>();
-                        foreach (var info in parsedInfo) // parseIntoExpectedOutput
-                        {
-                            BySessionHour value = new BySessionHour();
-                            string dateStr = info.Date.ToString().Remove(10);
-                            int year = int.Parse(dateStr.Substring(dateStr.Length - 4));
-                            int month = int.Parse(dateStr.Substring(0, 2));
-                            int day = int.Parse(dateStr.Substring(3, 2));
-                            dateStr = dateStr.Substring(dateStr.Length - 4) + "-" + dateStr.Substring(0,2) + "-" + dateStr.Substring(3,2);
-                            value.date = dateStr;
-                            value.hour = info.Hour;
-                            value.qumulativeForHour = info.TotalSessionDurationForHourInMins;
-                            value.totalTimeForHour = info.TotalSessionDuration;
-                            
-                            DateTime oldTime = new DateTime(year, month, day, (int)info.Hour, 0, 0); // this was the only way..
-                            
-                            int? conccurentSessions = context.ConcurrentSessionsEveryHours
-                                .Where(x => x.Hour == oldTime)
-                                .Select(x => x.NumberOfUsers).FirstOrDefault();
-                            value.conccurentSessions = conccurentSessions;
-                            
-                            beautifulInfo.Add(value);
-                        }
-
-                        if (beautifulInfo.Count == 0)
-                        {
-                            var emptyResult = new JObject();
-                            return new JsonResult(emptyResult);
-                        }
+                        StrategyContext newStrategy = new StrategyContext(new SessionReturnFrom());
+                        var beautifulInfo = (List<BySessionHour>)newStrategy.DoSomeLogic(context, fromTime);
                         return new JsonResult(beautifulInfo);
                     }
                 }
@@ -152,52 +82,8 @@ namespace Server.Controllers
                     {
                         if (!context.Database.CanConnect())
                             return StatusCode(500);
-                        var crudeReturnInfo = context.TotalSessionDurationByHours.ToList();
-
-                        DateTime onlyDate = new DateTime(tillTime.Year, tillTime.Month, tillTime.Day);
-                        int hour = tillTime.Hour;
-                        
-                        var parsedInfo = crudeReturnInfo.
-                            Select(x => new 
-                                {x.Date , x.Hour, x.TotalSessionDurationForHourInMins, x.TotalSessionDuration}).
-                            Where(x => x.Date == onlyDate && x.Hour <= hour || x.Date < onlyDate).ToList(); // oh my gosh
-
-                        if (parsedInfo.Count == 0)
-                        {
-                            var emptyResult = new JObject();
-                            return new JsonResult(emptyResult);
-                            // return StatusCode(404);
-                        }
-                           
-                        List<BySessionHour> beautifulInfo = new List<BySessionHour>();
-                        foreach (var info in parsedInfo) // parseIntoExpectedOutput
-                        {
-                            BySessionHour value = new BySessionHour();
-                            string dateStr = info.Date.ToString().Remove(10);
-                            int year = int.Parse(dateStr.Substring(dateStr.Length - 4));
-                            int month = int.Parse(dateStr.Substring(0, 2));
-                            int day = int.Parse(dateStr.Substring(3, 2));
-                            dateStr = dateStr.Substring(dateStr.Length - 4) + "-" + dateStr.Substring(0,2) + "-" + dateStr.Substring(3,2);
-                            value.date = dateStr;
-                            value.hour = info.Hour;
-                            value.qumulativeForHour = info.TotalSessionDurationForHourInMins;
-                            value.totalTimeForHour = info.TotalSessionDuration;
-                            
-                            DateTime oldTime = new DateTime(year, month, day, (int)info.Hour, 0, 0); // this was the only way..
-                            
-                            int? conccurentSessions = context.ConcurrentSessionsEveryHours
-                                .Where(x => x.Hour == oldTime)
-                                .Select(x => x.NumberOfUsers).FirstOrDefault();
-                            value.conccurentSessions = conccurentSessions;
-                            
-                            beautifulInfo.Add(value);
-                        }
-
-                        if (beautifulInfo.Count == 0)
-                        {
-                            var emptyResult = new JObject();
-                            return new JsonResult(emptyResult);
-                        }
+                        StrategyContext newStrategy = new StrategyContext(new SessionReturnTill());
+                        var beautifulInfo = (List<BySessionHour>)newStrategy.DoSomeLogic(context, tillTime);
                         return new JsonResult(beautifulInfo);
                     }
                 }
@@ -228,62 +114,24 @@ namespace Server.Controllers
                     {
                         if (!context.Database.CanConnect())
                             return StatusCode(500);
-                        var crudeReturnInfo = context.TotalSessionDurationByHours.ToList();
-
-                        DateTime tillDate = new DateTime(tillTime.Year, tillTime.Month, tillTime.Day);
-                        DateTime fromDate = new DateTime(fromTime.Year, fromTime.Month, fromTime.Day);
-
-                        int fromHour = fromTime.Hour;
-                        int tillHour = tillTime.Hour;
-                        
-                        var parsedInfo = crudeReturnInfo.
-                            Select(x => new 
-                                {x.Date , x.Hour, x.TotalSessionDurationForHourInMins, x.TotalSessionDuration}).
-                            Where(x => (x.Date == fromDate && x.Hour >= fromHour || x.Date > fromDate) 
-                                       && (x.Date == tillDate && x.Hour <= tillHour || x.Date < tillDate)).ToList();
-                        
-                        if (parsedInfo.Count == 0)
-                        {
-                            var emptyResult = new JObject();
-                            return new JsonResult(emptyResult);
-                            // return StatusCode(404);
-                        }
-                           
-                        List<BySessionHour> beautifulInfo = new List<BySessionHour>();
-                        foreach (var info in parsedInfo) // parseIntoExpectedOutput
-                        {
-                            BySessionHour value = new BySessionHour();
-                            string dateStr = info.Date.ToString().Remove(10);
-                            int year = int.Parse(dateStr.Substring(dateStr.Length - 4));
-                            int month = int.Parse(dateStr.Substring(0, 2));
-                            int day = int.Parse(dateStr.Substring(3, 2));
-                            dateStr = dateStr.Substring(dateStr.Length - 4) + "-" + dateStr.Substring(0,2) + "-" + dateStr.Substring(3,2);
-                            value.date = dateStr;
-                            value.hour = info.Hour;
-                            value.qumulativeForHour = info.TotalSessionDurationForHourInMins;
-                            value.totalTimeForHour = info.TotalSessionDuration;
-                            
-                            DateTime oldTime = new DateTime(year, month, day, (int)info.Hour, 0, 0); // this was the only way..
-                            
-                            int? conccurentSessions = context.ConcurrentSessionsEveryHours
-                                .Where(x => x.Hour == oldTime)
-                                .Select(x => x.NumberOfUsers).FirstOrDefault();
-                            value.conccurentSessions = conccurentSessions;
-                            
-                            beautifulInfo.Add(value);
-                        }
-
-                        if (beautifulInfo.Count == 0)
-                        {
-                            var emptyResult = new JObject();
-                            return new JsonResult(emptyResult);
-                        }
+                        Tuple<DateTime?, DateTime?> requestParameters = new Tuple<DateTime?, DateTime?>(fromTime, tillTime);
+                        StrategyContext newStrategy = new StrategyContext(new SessionReturnRange());
+                        var beautifulInfo = (List<BySessionHour>)newStrategy.DoSomeLogic(context, requestParameters);
                         return new JsonResult(beautifulInfo);
                     }
                 }
                 return null;
             }
 
+
+            // private DateTime ParseRequestTime(string str)
+            // {
+            //     DateTime returnTime = new DateTime(int.Parse(str.Substring(0,4)),
+            //         int.Parse(str.Substring(5,2)),
+            //         int.Parse(str.Substring(8,2)), 
+            //         int.Parse(str.Substring(11,2)), 0, 0);
+            //     return returnTime;
+            // }
             // POST action
 
             // PUT action

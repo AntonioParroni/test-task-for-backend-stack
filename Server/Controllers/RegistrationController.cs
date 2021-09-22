@@ -30,7 +30,7 @@ namespace Server.Controllers
                     if (crudeInfoByMonth.Count != 0)
                     {
                         StrategyContext context1 = new StrategyContext(new RegistrationByMonthGetAll()); // setting the correct strategy
-                        var infoListToReturn = (List<CleanByMonth>)context1.DoSomeBusinessLogic(crudeInfoByMonth); 
+                        var infoListToReturn = (List<CleanByMonth>)context1.DoSomeLogic(crudeInfoByMonth); 
                         if (infoListToReturn.Count == 0)
                             return BadRequest(404);
                         return new JsonResult(infoListToReturn);
@@ -56,34 +56,14 @@ namespace Server.Controllers
                 {
                     if (!context.Database.CanConnect())
                         return StatusCode(500);
-                    var crudeInfoByDeviceAndMonth = context.RegistrationCountByDevicesAndMonths.ToList();
-                    if (crudeInfoByDeviceAndMonth.Count != 0)
-                    {
-                        CleanWithBoth returnInfo = new CleanWithBoth();
-                        returnInfo.year = (short)year;
-                        returnInfo.month = (byte)month;
-                        returnInfo.registeredUsers = 0;
-                        
-                        List<Provision> specificData = new List<Provision>();
-                        foreach (var dataSet in crudeInfoByDeviceAndMonth.
-                            Where(x => x.Year == year && x.Month == month))
-                        {
-                            Provision info = new Provision();
-                            info.type = context.DeviceTypes.First(c => c.DeviceId == dataSet.DeviceType.Value).DeviceName;
-                            info.value = dataSet.NumberOfUsers;
-                            specificData.Add(info);
-                            if (dataSet.NumberOfUsers != null)
-                            {
-                                returnInfo.registeredUsers += dataSet.NumberOfUsers.Value;
-                            }
-                        }
-                        returnInfo.registeredDevices = specificData;
-                        if (returnInfo.registeredUsers == 0)
+                    var RequestParameters = new Tuple<int, int>(year, month);
+                    StrategyContext newStrategy = new StrategyContext(new RegistrationByMonthGetByID());
+
+                    var returnInfo = (CleanWithBoth)newStrategy.DoSomeLogic(context, RequestParameters);    
+                    if (returnInfo.registeredUsers == 0)
                             return BadRequest(404);
-                        return new JsonResult(returnInfo);
-                    }
+                    return new JsonResult(returnInfo);
                 }
-                return BadRequest(404);
             }
 
             // POST action
