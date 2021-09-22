@@ -40,10 +40,4 @@ namespace Server.Controllers
             return new JsonResult(returnInfo);
         }
     }
-
-    // POST action
-
-    // PUT action
-
-    // DELETE action
 }

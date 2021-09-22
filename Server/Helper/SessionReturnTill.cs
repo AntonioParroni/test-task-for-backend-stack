@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using Server.DAL;
 using Server.DTO;
 using Server.Models;
 
@@ -12,10 +14,19 @@ namespace Server.Helper
     {
         public object DoLogic(params object[] data)
         {
-            var dbContext = data[0] as ApplicationContext;
-            DateTime tillTime = data[1] as DateTime? ?? default;
-            var crudeReturnInfo = dbContext.TotalSessionDurationByHours.ToList();
+            string time = data[0] as string;
+            DateTime tillTime;
+            try
+            {
+                tillTime = time.ParseRequestTime();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new JsonResult(new JsonObject());
+            }
 
+            var crudeReturnInfo = new GenericRepository<TotalSessionDurationByHour>(new ApplicationContext()).Get();
             DateTime onlyDate = new DateTime(tillTime.Year, tillTime.Month, tillTime.Day);
             int hour = tillTime.Hour;
 
@@ -30,6 +41,8 @@ namespace Server.Helper
             {
                 return beautifulInfo;
             }
+
+            var devices = new GenericRepository<ConcurrentSessionsEveryHour>(new ApplicationContext()).Get();
 
             foreach (var info in parsedInfo) // parseIntoExpectedOutput
             {
@@ -47,7 +60,7 @@ namespace Server.Helper
 
                 DateTime oldTime = new DateTime(year, month, day, (int)info.Hour, 0, 0); // this was the only way..
 
-                int? conccurentSessions = dbContext.ConcurrentSessionsEveryHours.Where(x => x.Hour == oldTime)
+                int? conccurentSessions = devices.Where(x => x.Hour == oldTime)
                     .Select(x => x.NumberOfUsers)
                     .FirstOrDefault();
                 value.conccurentSessions = conccurentSessions;

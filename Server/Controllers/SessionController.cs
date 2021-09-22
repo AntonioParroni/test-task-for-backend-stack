@@ -39,24 +39,8 @@ namespace Server.Controllers
 
             if (startTime == null) // till query
             {
-                DateTime tillTime;
-                try
-                {
-                    tillTime = endTime.ParseRequestTime();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    return StatusCode(400);
-                }
-
-                using (ApplicationContext context = new ApplicationContext())
-                {
-                    if (!context.Database.CanConnect()) return StatusCode(500);
-                    Strategy newStrategy = new Strategy(new SessionReturnTill()); // logic selection
-                    var beautifulInfo = (List<BySessionHour>)newStrategy.Execute(context, tillTime);
-                    return new JsonResult(beautifulInfo);
-                }
+                var beautifulInfo = (List<BySessionHour>)new Strategy(new SessionReturnTill()).Execute(endTime);
+                return new JsonResult(beautifulInfo);
             }
 
             if (startTime != null && endTime != null) // range query
@@ -86,11 +70,5 @@ namespace Server.Controllers
 
             return new JsonResult(new JsonObject());
         }
-
-        // POST action
-
-        // PUT action
-
-        // DELETE action
     }
 }
