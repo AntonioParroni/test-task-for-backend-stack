@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Server.Models;
 using Server.DTO;
 using Server.Helper;
+#nullable enable
 
 namespace Server.Controllers
 {
@@ -105,7 +107,7 @@ namespace Server.Controllers
                         return new JsonResult(beautifulInfo);
                     }
                 }
-                return null;
+                return new JsonResult(new JsonObject());
             }
 
             

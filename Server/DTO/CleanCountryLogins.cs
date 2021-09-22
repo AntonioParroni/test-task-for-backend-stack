@@ -1,5 +1,5 @@
 using System;
-
+#nullable enable
 namespace Server.DTO
 {
     public class CleanCountryLogin
