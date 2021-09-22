@@ -58,8 +58,8 @@ namespace Server.Controllers
                         return StatusCode(500);
                     var RequestParameters = new Tuple<int, int>(year, month);
                     StrategyContext newStrategy = new StrategyContext(new RegistrationByMonthGetByID());
-
-                    var returnInfo = (CleanWithBoth)newStrategy.DoSomeLogic(context, RequestParameters);    
+                    var returnInfo = (CleanWithBoth)newStrategy.DoSomeLogic(context, RequestParameters);   
+                    
                     if (returnInfo.registeredUsers == 0)
                             return BadRequest(404);
                     return new JsonResult(returnInfo);
