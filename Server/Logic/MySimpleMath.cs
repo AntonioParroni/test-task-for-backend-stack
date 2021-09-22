@@ -1,6 +1,6 @@
 using System;
 
-namespace Server.Helper
+namespace Server.Logic
 {
     public static class MySimpleMath
     {

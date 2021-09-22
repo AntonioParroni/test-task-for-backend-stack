@@ -1,13 +1,8 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Validations;
-using Server.DAL;
-using Server.Models;
 using Server.DTO;
-using Server.Helper;
+using Server.Logic;
 
 namespace Server.Controllers
 {

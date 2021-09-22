@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace Server.Helper
+namespace Server.Logic
 {
     public static class ValidIdParser
     {

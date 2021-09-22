@@ -1,11 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Server.DAL;
 using Server.DTO;
 using Server.Models;
 
-namespace Server.Helper
+namespace Server.Logic
 {
     public class RegistrationByMonthGetAll : IStrategy
     {

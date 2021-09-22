@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Server.Models;
 using Server.DTO;
-using Server.Helper;
+using Server.Logic;
 
 namespace Server.Controllers
 {
