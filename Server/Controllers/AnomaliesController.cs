@@ -12,28 +12,28 @@ namespace Server.Controllers
     public class AnomaliesController : ControllerBase
     {
         private readonly ILogger<AnomaliesController> _logger;
-            public AnomaliesController(ILogger<AnomaliesController> logger)
-            {
-                _logger = logger;
-            }
-            
-            [HttpGet]
-            public ActionResult GetAll()
-            {
-                using (ApplicationContext context = new ApplicationContext())
-                {
-                    if (!context.Database.CanConnect())
-                        return StatusCode(500);
-                    StrategyContext newStrategy = new StrategyContext(new AnomaliesReturnAll()); // logic selection
-                    var beautifulInfo = (List<CleanConcurrentLogins>)newStrategy.DoSomeLogic(context);
-                    return new JsonResult(beautifulInfo);
-                }
-            }
-            
-            // POST action
 
-            // PUT action
+        public AnomaliesController(ILogger<AnomaliesController> logger)
+        {
+            _logger = logger;
+        }
 
-            // DELETE action
+        [HttpGet]
+        public ActionResult GetAll()
+        {
+            using (ApplicationContext context = new ApplicationContext())
+            {
+                if (!context.Database.CanConnect()) return StatusCode(500);
+                StrategyContext newStrategy = new StrategyContext(new AnomaliesReturnAll()); // logic selection
+                var beautifulInfo = (List<CleanConcurrentLogins>)newStrategy.DoSomeLogic(context);
+                return new JsonResult(beautifulInfo);
+            }
+        }
+
+        // POST action
+
+        // PUT action
+
+        // DELETE action
     }
 }

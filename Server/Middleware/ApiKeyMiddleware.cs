@@ -2,17 +2,19 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
- 
+
 namespace Server.Middleware
 {
     public class ApiKeyMiddleware
     {
         private readonly RequestDelegate _next;
         private const string APIKEYNAME = "x-api-key";
+
         public ApiKeyMiddleware(RequestDelegate next)
         {
             _next = next;
         }
+
         public async Task InvokeAsync(HttpContext context)
         {
             if (!context.Request.Headers.TryGetValue(APIKEYNAME, out var extractedApiKey))
@@ -21,18 +23,16 @@ namespace Server.Middleware
                 await context.Response.WriteAsync("Api Key was not provided");
                 return;
             }
- 
+
             var appSettings = context.RequestServices.GetRequiredService<IConfiguration>();
- 
             var apiKey = appSettings.GetValue<string>(APIKEYNAME);
- 
             if (!apiKey.Equals(extractedApiKey))
             {
                 context.Response.StatusCode = 403;
                 await context.Response.WriteAsync("Incorrect API key");
                 return;
             }
- 
+
             await _next(context);
         }
     }

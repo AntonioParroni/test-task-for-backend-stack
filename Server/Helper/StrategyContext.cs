@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-
 namespace Server.Helper
 {
     class StrategyContext
     {
-       
         private IStrategy _strategy;
 
         public StrategyContext()

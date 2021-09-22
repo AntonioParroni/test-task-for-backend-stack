@@ -18,13 +18,12 @@ namespace Server.Helper
                 {
                     CleanByMonth item = new CleanByMonth
                     {
-                        year = crudeInfo.Year,
-                        month = crudeInfo.Month,
-                        registeredUsers = crudeInfo.NumberOfUsers
+                        year = crudeInfo.Year, month = crudeInfo.Month, registeredUsers = crudeInfo.NumberOfUsers
                     };
                     infoListToReturn.Add(item);
                 }
             }
+
             return infoListToReturn;
         }
     }

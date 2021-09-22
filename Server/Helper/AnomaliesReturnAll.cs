@@ -23,8 +23,8 @@ namespace Server.Helper
                 returnElement.loginTime = (DateTime)concurrentLoginElement.LoginTs;
                 foreach (var countriesLoginElement in crudeAnomalyCountriesLogins)
                 {
-                    if (concurrentLoginElement.UserName == countriesLoginElement.UserName
-                        && concurrentLoginElement.LoginTs == countriesLoginElement.LoginTs)
+                    if (concurrentLoginElement.UserName == countriesLoginElement.UserName &&
+                        concurrentLoginElement.LoginTs == countriesLoginElement.LoginTs)
                     {
                         CleanCountryLogin unexpectedLogin = new CleanCountryLogin();
                         unexpectedLogin.country = countriesLoginElement.Country;
@@ -32,8 +32,10 @@ namespace Server.Helper
                         returnElement.unexpectedLogin = unexpectedLogin;
                     }
                 }
+
                 returnInfo.Add(returnElement);
             }
+
             return returnInfo;
         }
     }
