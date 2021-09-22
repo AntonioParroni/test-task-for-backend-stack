@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using Server.DAL;
 using Server.DTO;
 using Server.Models;
 
@@ -12,15 +14,29 @@ namespace Server.Helper
     {
         public object DoLogic(params object[] data)
         {
-            var dbContext = data[0] as ApplicationContext;
-            Tuple<DateTime?, DateTime?> Time = data[1] as Tuple<DateTime?, DateTime?> ?? default;
-            var crudeReturnInfo = dbContext.TotalSessionDurationByHours.ToList();
+            string fromTimeString = data[0] as string;
+            string tillTimeString = data[1] as string;
 
-            DateTime tillDate = new DateTime(Time.Item2.Value.Year, Time.Item2.Value.Month, Time.Item2.Value.Day);
-            DateTime fromDate = new DateTime(Time.Item1.Value.Year, Time.Item1.Value.Month, Time.Item1.Value.Day);
+            DateTime fromTime;
+            DateTime tillTime;
+            try
+            {
+                fromTime = fromTimeString.ParseRequestTime();
+                tillTime = tillTimeString.ParseRequestTime();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new JsonResult(new JsonObject());
+            }
+            
+            DateTime tillDate = new DateTime(tillTime.Year, tillTime.Month, tillTime.Day);
+            DateTime fromDate = new DateTime(fromTime.Year, fromTime.Month, fromTime.Day);
 
-            int fromHour = Time.Item1.Value.Hour;
-            int tillHour = Time.Item2.Value.Hour;
+            var crudeReturnInfo = new GenericRepository<TotalSessionDurationByHour>(new ApplicationContext()).Get();
+            
+            int fromHour = fromTime.Hour;
+            int tillHour = tillTime.Hour;
 
             var parsedInfo = crudeReturnInfo
                 .Select(x => new { x.Date, x.Hour, x.TotalSessionDurationForHourInMins, x.TotalSessionDuration })
@@ -33,6 +49,8 @@ namespace Server.Helper
             {
                 return beautifulInfo;
             }
+
+            var devices = new GenericRepository<ConcurrentSessionsEveryHour>(new ApplicationContext()).Get();
 
             foreach (var info in parsedInfo) // parseIntoExpectedOutput
             {
@@ -50,7 +68,7 @@ namespace Server.Helper
 
                 DateTime oldTime = new DateTime(year, month, day, (int)info.Hour, 0, 0); // this was the only way..
 
-                int? conccurentSessions = dbContext.ConcurrentSessionsEveryHours.Where(x => x.Hour == oldTime)
+                int? conccurentSessions = devices.Where(x => x.Hour == oldTime)
                     .Select(x => x.NumberOfUsers)
                     .FirstOrDefault();
                 value.conccurentSessions = conccurentSessions;

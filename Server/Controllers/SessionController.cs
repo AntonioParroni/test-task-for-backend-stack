@@ -45,30 +45,11 @@ namespace Server.Controllers
 
             if (startTime != null && endTime != null) // range query
             {
-                DateTime fromTime;
-                DateTime tillTime;
-                try
-                {
-                    fromTime = startTime.ParseRequestTime();
-                    tillTime = endTime.ParseRequestTime();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    return StatusCode(400);
-                }
-
-                using (ApplicationContext context = new ApplicationContext())
-                {
-                    if (!context.Database.CanConnect()) return StatusCode(500);
-                    Tuple<DateTime?, DateTime?> requestParameters = new Tuple<DateTime?, DateTime?>(fromTime, tillTime);
-                    Strategy newStrategy = new Strategy(new SessionReturnRange()); // // logic selection
-                    var beautifulInfo = (List<BySessionHour>)newStrategy.Execute(context, requestParameters);
-                    return new JsonResult(beautifulInfo);
-                }
+                var beautifulInfo = (List<BySessionHour>)new Strategy(new SessionReturnRange()).Execute(startTime, endTime);
+                return new JsonResult(beautifulInfo);
             }
 
-            return new JsonResult(new JsonObject());
+            return new JsonResult(new JsonObject()); // empty result
         }
     }
 }
