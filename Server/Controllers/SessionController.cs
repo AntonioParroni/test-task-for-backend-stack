@@ -41,7 +41,7 @@ namespace Server.Controllers
                     DateTime fromTime;
                     try
                     {
-                        fromTime = ParseRequestTime(startTime);
+                        fromTime = startTime.ParseRequestTime();
                     }
                     catch (Exception e)
                     {
@@ -64,7 +64,7 @@ namespace Server.Controllers
                     DateTime tillTime;
                     try
                     {
-                        tillTime = ParseRequestTime(endTime);
+                        tillTime = endTime.ParseRequestTime();
                     }
                     catch (Exception e)
                     {
@@ -88,8 +88,8 @@ namespace Server.Controllers
                     DateTime tillTime;
                     try
                     {
-                        fromTime = ParseRequestTime(startTime);
-                        tillTime = ParseRequestTime(endTime);
+                        fromTime = startTime.ParseRequestTime();
+                        tillTime = endTime.ParseRequestTime();
                     }
                     catch (Exception e)
                     {
@@ -110,15 +110,7 @@ namespace Server.Controllers
                 return null;
             }
 
-
-            private DateTime ParseRequestTime(string str)
-            {
-                DateTime returnTime = new DateTime(int.Parse(str.Substring(0,4)),
-                    int.Parse(str.Substring(5,2)),
-                    int.Parse(str.Substring(8,2)), 
-                    int.Parse(str.Substring(11,2)), 0, 0);
-                return returnTime;
-            }
+            
             
             // POST action
 
