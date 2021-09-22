@@ -45,11 +45,11 @@ namespace Server.Controllers
                             }
                         }
                         if (infoListToReturn.Count == 0)
-                            return StatusCode(404);
+                            return BadRequest(404);
                         return new JsonResult(infoListToReturn);
                     }
                 }
-                return StatusCode(404);
+                return BadRequest(404);
             }
 
             [HttpGet("{id}")]
@@ -92,11 +92,11 @@ namespace Server.Controllers
                         }
                         returnInfo.registeredDevices = specificData;
                         if (returnInfo.registeredUsers == 0)
-                            return StatusCode(404);
+                            return BadRequest(404);
                         return new JsonResult(returnInfo);
                     }
                 }
-                return StatusCode(404);
+                return BadRequest(404);
             }
 
             // POST action
