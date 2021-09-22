@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Server.DAL;
 using Server.DTO;
 using Server.Models;
 
@@ -10,9 +11,11 @@ namespace Server.Helper
     {
         public object DoLogic(params object[] data)
         {
-            var dbContext = data[0] as ApplicationContext;
-            var crudeAnomalyConcurrentyLogins = dbContext.ConcurrentUniqueSessionsWithMultipleDevices.ToList();
-            var crudeAnomalyCountriesLogins = dbContext.UniqueCountriesByDays.ToList();
+            var crudeAnomalyConcurrentyLogins =
+                new GenericRepository<ConcurrentUniqueSessionsWithMultipleDevice>(new ApplicationContext()).Get();
+            var crudeAnomalyCountriesLogins =
+                new GenericRepository<UniqueCountriesByDay>(new ApplicationContext()).Get();
+
             List<CleanConcurrentLogins> returnInfo = new List<CleanConcurrentLogins>();
 
             foreach (var concurrentLoginElement in crudeAnomalyConcurrentyLogins)

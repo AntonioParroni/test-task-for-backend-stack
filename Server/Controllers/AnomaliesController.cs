@@ -21,19 +21,8 @@ namespace Server.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
-            using (ApplicationContext context = new ApplicationContext())
-            {
-                if (!context.Database.CanConnect()) return StatusCode(500);
-                Strategy newStrategy = new Strategy(new AnomaliesReturnAll()); // logic selection
-                var beautifulInfo = (List<CleanConcurrentLogins>)newStrategy.Execute(context);
-                return new JsonResult(beautifulInfo);
-            }
+            var beautifulInfo = (List<CleanConcurrentLogins>)new Strategy(new AnomaliesReturnAll()).Execute();
+            return new JsonResult(beautifulInfo);
         }
-
-        // POST action
-
-        // PUT action
-
-        // DELETE action
     }
 }
