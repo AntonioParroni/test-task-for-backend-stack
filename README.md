@@ -55,4 +55,5 @@ docker-compose up
  http://localhost:8000 
  ```
 
-
+P.S. Will try to deploy them one day
+https://hub.docker.com/repository/docker/savonarolla/my-test-repo
