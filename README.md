@@ -42,11 +42,11 @@ We can put them inside our container. Alongside with our already setup and test 
 Run in /Server folder following commands in terminal.
 
 ```
-docker compose build
+docker-compose build
 ```
 
 ```
-docker compose up
+docker-compose up
 ```
 
 # 6. Running tests 
