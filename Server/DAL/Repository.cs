@@ -23,7 +23,7 @@ namespace Server.DAL
          
         public IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
         {
-            return _dbSet.AsNoTracking().AsEnumerable().Where(predicate).ToList();
+            return _dbSet.AsNoTracking().Where(predicate).ToList();
         }
         public TEntity FindById(int id)
         {
