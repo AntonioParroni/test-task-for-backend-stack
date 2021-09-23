@@ -34,7 +34,9 @@ namespace Server.Models
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(
-                    "Server=localhost;Database=Contoso_Authentication_Logs;User Id=sa;Password=Password123;");
+                    "Server=db;Database=master;User=sa;Password=Your_password123;");
+                // optionsBuilder.UseSqlServer(
+                //     "Server=localhost;Database=Contoso_Authentication_Logs;User Id=sa;Password=Password123;");
             }
         }
 
