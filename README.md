@@ -19,9 +19,9 @@
 Open your Postman and follow this link: 
 https://www.postman.com/savonarolla/workspace/forgreenm/overview
 
-This will take you to my API project. Where everything is already set ready.
+This will take you to my API project. Where everything is already set.
 
-Or you can create your own in Postman. 
+Or, you can create your own in Postman project. 
 Just select as Authorization type - API Key.
 With it's Key parameter as "x-api-key"
 And value as "qweasdzxc" 
