@@ -33,10 +33,8 @@ namespace Server.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                // optionsBuilder.UseSqlServer(
-                //     "Server=db;Database=master;User=sa;Password=Your_password123;");
-                optionsBuilder.UseSqlServer(
-                "Server=localhost,1444;Database=Contoso_Authentication_Logs;User Id=sa;Password=Your_password123;");
+                // optionsBuilder.UseSqlServer("Server=localhost;Database=Contoso_Authentication_Logs;User Id=sa;Password=Password123;"); // connection string to my local db
+                
             }
         }
 

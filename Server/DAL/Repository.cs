@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Server.DAL
 {
@@ -21,9 +22,9 @@ namespace Server.DAL
             return _dbSet.AsNoTracking().ToList();
         }
          
-        public IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
+        public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> predicate)
         {
-            return _dbSet.AsNoTracking().Where(predicate).ToList();
+            return _context.Set<TEntity>().Where(predicate).ToList();
         }
         public TEntity FindById(int id)
         {
