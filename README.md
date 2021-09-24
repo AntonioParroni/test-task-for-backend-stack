@@ -55,5 +55,15 @@ docker-compose up
  http://localhost:8000 
  ```
 
-P.S. Will try to deploy them one day
+--------------------
+### Future To Do List 
+ - Implement DI Container (Ninject)
+ - Refactor logic operations into multiple and self-sustained services
+ - Mock DB
+ - Implement NUnit tests 
+ - Implement HTTPS protocol
+ - Implement secure and personal API Keys  
+ - Deploy on AWS
+ - Configure CD pipeline
+
 https://hub.docker.com/repository/docker/savonarolla/my-test-repo
