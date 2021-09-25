@@ -6,10 +6,10 @@ using System.Linq.Expressions;
 
 namespace Server.DAL
 {
-    public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class GenericRepository<TEntity> : IRepository<TEntity>, IDisposable where TEntity : class
     {
-        DbContext _context;
-        DbSet<TEntity> _dbSet;
+        public DbContext _context { get; set; }
+        public DbSet<TEntity> _dbSet { get; set; }
  
         public GenericRepository(DbContext context)
         {
@@ -45,6 +45,23 @@ namespace Server.DAL
         {
             _dbSet.Remove(item);
             _context.SaveChanges();
+        }
+
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = null;
+                }
+            }
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

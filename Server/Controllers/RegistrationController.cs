@@ -1,8 +1,12 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Server.DAL;
 using Server.DTO;
 using Server.Logic;
+using Server.Logic.Registration;
+using Server.Models;
 
 namespace Server.Controllers
 {
@@ -11,18 +15,20 @@ namespace Server.Controllers
     public class RegistrationController : ControllerBase
     {
         private readonly ILogger<RegistrationController> _logger;
+        public IRegistrationService _service { get; set; }
 
-        public RegistrationController(ILogger<RegistrationController> logger)
+        public RegistrationController(ILogger<RegistrationController> logger, IRegistrationService service)
         {
             _logger = logger;
+            _service = service;
         }
 
         [HttpGet]
         public ActionResult GetAll()
         {
-            var returnInfo = (List<CleanByMonth>)new Strategy(new RegistrationByMonthGetAll()).Execute();
-            if (returnInfo.Count == 0) return BadRequest(404);
-            return new JsonResult(returnInfo);
+            var returnInfo = _service.GetAll();
+            if (returnInfo != null) return BadRequest(404);
+            return returnInfo;
         }
 
         [HttpGet("{id}")]
@@ -30,9 +36,9 @@ namespace Server.Controllers
         {
             if (!ValidIdParser.Check(id))
                 return StatusCode(404);
-            var returnInfo = (CleanWithBoth)new Strategy(new RegistrationByMonthGetByID()).Execute(id);
-            if (returnInfo.registeredUsers == 0) return BadRequest(404);
-            return new JsonResult(returnInfo);
+            var returnInfo = _service.GetById(id);
+            if (returnInfo != null) return BadRequest(404);
+            return returnInfo;
         }
     }
 }
