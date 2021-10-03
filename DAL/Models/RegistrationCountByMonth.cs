@@ -1,6 +1,6 @@
 ﻿#nullable disable
 
-namespace Server.Models
+namespace DAL.Models
 {
     public partial class RegistrationCountByMonth
     {

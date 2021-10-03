@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Server.DAL;
+using DAL;
+using DAL.Models;
 using Server.DTO;
-using Server.Models;
 
 namespace Server.Logic
 {

@@ -1,5 +1,0 @@
-FROM mcr.microsoft.com/mssql/server
-COPY /DBinit.sql /
-COPY /db_entrypoint.sh /
-WORKDIR /
-ENTRYPOINT /db_entrypoint.sh & /opt/mssql/bin/sqlservr

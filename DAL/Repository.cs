@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
-namespace Server.DAL
+namespace DAL
 {
     public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
