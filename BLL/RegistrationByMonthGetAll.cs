@@ -11,12 +11,12 @@ namespace BLL
         public object DoLogic(params object[] data)
         {
             var crudeInfoByMonth = new GenericRepository<RegistrationCountByMonth>(new ApplicationContext()).Get();
-            List<CleanByMonth> infoListToReturn = new List<CleanByMonth>();
+            List<CleanByMonth> infoListToReturn = new();
             foreach (var crudeInfo in crudeInfoByMonth)
             {
                 if (crudeInfo.Month == DateTime.Today.Month)
                 {
-                    CleanByMonth item = new CleanByMonth
+                    CleanByMonth item = new()
                     {
                         year = crudeInfo.Year, month = crudeInfo.Month, registeredUsers = crudeInfo.NumberOfUsers
                     };
