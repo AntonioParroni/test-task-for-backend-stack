@@ -33,8 +33,8 @@ namespace DAL.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=localhost;Database=testDB;User Id=sa;Password=Password123;"); // connection string to my local db
-                // optionsBuilder.UseSqlServer("Server=db;Database=Contoso_Authentication_Logs;User Id=sa;Password=Your_password123;"); // connection string to my db container instance
+                // optionsBuilder.UseSqlServer("Server=localhost;Database=testDB;User Id=sa;Password=Password123;"); // connection string to my local db
+                optionsBuilder.UseSqlServer("Server=db;Database=Contoso_Authentication_Logs;User Id=sa;Password=Your_password123;"); // connection string to my db container instance
             }
         }
 

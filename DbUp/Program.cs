@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 
 namespace DbUp
 {
@@ -8,11 +9,12 @@ namespace DbUp
     {
         static int Main(string[] args)
         {
-            
+            Thread.Sleep(30000);
             var connectionString =
                 args.FirstOrDefault()
-                ?? "Server=localhost;Database=testDB;User Id=sa;Password=Password123;"; // don't ever ever add here "Trusted_Connection=True;"
-            
+                ?? "Server=db;Database=Contoso_Authentication_Logs;Trusted_Connection=True;User Id=sa;Password=Password123;"; // don't ever ever add here "Trusted_Connection=True;"
+                // ?? "Server=localhost;Database=Contoso_Authentication_Logs;User Id=sa;Password=Password123;";
+
             EnsureDatabase.For.SqlDatabase(connectionString);
 
             var upgrader =
