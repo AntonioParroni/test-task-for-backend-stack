@@ -1,5 +1,3 @@
-use testDB
-go
 create table Months
 (
     MonthID tinyint primary key identity,

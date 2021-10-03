@@ -1,5 +1,3 @@
-use testDB
-go
 INSERT Months VALUES
 ('January')
 ,('February')

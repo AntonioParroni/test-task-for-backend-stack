@@ -11,7 +11,7 @@ namespace DbUp
             
             var connectionString =
                 args.FirstOrDefault()
-                ?? "Server=localhost;Database=testDB;User Id=sa;Password=Password123;";
+                ?? "Server=localhost;Database=testDB;User Id=sa;Password=Password123;"; // don't ever ever add here "Trusted_Connection=True;"
             
             EnsureDatabase.For.SqlDatabase(connectionString);
 
