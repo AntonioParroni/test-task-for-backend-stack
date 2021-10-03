@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using DAL;
 using DAL.Models;
-using Server.DTO;
+using DTO;
 
-namespace Server.Logic
+namespace BLL
 {
     public class RegistrationByMonthGetByID : IStrategy
     {

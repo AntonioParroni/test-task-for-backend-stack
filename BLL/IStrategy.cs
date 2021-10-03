@@ -1,4 +1,4 @@
-namespace Server.Logic
+namespace BLL
 {
     public interface IStrategy
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Server.Logic
+namespace BLL
 {
     public static class Extenders
     {

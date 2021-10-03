@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text.Json.Nodes;
 using DAL;
 using DAL.Models;
-using Microsoft.AspNetCore.Mvc;
-using Server.DTO;
+using DTO;
 
-namespace Server.Logic
+namespace BLL
 {
     public class SessionReturnRange : IStrategy
     {
@@ -26,7 +25,7 @@ namespace Server.Logic
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return new JsonResult(new JsonObject());
+                return null;
             }
             
             DateTime tillDate = new DateTime(tillTime.Year, tillTime.Month, tillTime.Day);

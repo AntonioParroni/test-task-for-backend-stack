@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Text.Json.Nodes;
+using BLL;
+using DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Server.DTO;
-using Server.Logic;
 
 #nullable enable
 

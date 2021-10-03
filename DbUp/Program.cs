@@ -13,7 +13,7 @@ namespace DbUp
             var connectionString =
                 args.FirstOrDefault()
                 // ?? "Server=db;Database=Contoso_Authentication_Logs;Trusted_Connection=True;User Id=sa;Password=Password123;"; // don't ever ever add here "Trusted_Connection=True;"
-                ?? "Server=localhost;Database=Contoso_Authentication_Logs;User Id=sa;Password=Password123;";
+                ?? "Server=localhost;Database=Contoso_Authentication_Logs;User Id=sa;Password=Password123;"; // for local purposes
 
             EnsureDatabase.For.SqlDatabase(connectionString);
 

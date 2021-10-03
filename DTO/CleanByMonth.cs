@@ -1,4 +1,4 @@
-namespace Server.DTO
+namespace DTO
 {
     public class CleanByMonth
     {

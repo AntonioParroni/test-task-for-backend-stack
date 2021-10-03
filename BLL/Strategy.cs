@@ -1,6 +1,6 @@
-namespace Server.Logic
+namespace BLL
 {
-    class Strategy
+    public class Strategy
     {
         private IStrategy _strategy;
 
