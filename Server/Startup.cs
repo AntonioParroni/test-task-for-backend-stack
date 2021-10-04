@@ -24,7 +24,9 @@ namespace Server
             string connectionString = "Server=localhost;Database=Contoso_Authentication_Logs;User Id=sa;Password=Password123;";
             services.AddTransient<IRegistrationsRepository, RegistrationsRepository>(provider => new RegistrationsRepository(connectionString));
             services.AddTransient<ISessionsRepository, SessionsRepository>(provider => new SessionsRepository(connectionString));
+            services.AddTransient<IAnomaliesRepository, AnomaliesRepository>(provider => new AnomaliesRepository(connectionString));
 
+            
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "Server", Version = "v1" }); });
         }
