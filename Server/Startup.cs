@@ -1,3 +1,4 @@
+using Infrastructure.DapperRepo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +21,9 @@ namespace Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connectionString = "Server=localhost;Database=Contoso_Authentication_Logs;User Id=sa;Password=Password123;";
+            services.AddTransient<IRegsByCurrentMonth, RegsByCurrentMonthRepository>(provider => new RegsByCurrentMonthRepository(connectionString));
+            
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "Server", Version = "v1" }); });
         }
