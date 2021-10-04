@@ -1,4 +1,4 @@
-namespace BLL
+namespace Infrastructure
 {
     public interface IStrategy
     {

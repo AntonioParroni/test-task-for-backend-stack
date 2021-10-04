@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
-namespace DAL
+namespace Infrastructure
 {
     public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {

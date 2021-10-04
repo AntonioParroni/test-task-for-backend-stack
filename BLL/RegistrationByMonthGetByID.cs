@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using DAL;
 using DAL.Models;
 using DTO;
+using Infrastructure;
 
 namespace BLL
 {

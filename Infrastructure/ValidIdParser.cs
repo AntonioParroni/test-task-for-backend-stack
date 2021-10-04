@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace BLL
+namespace Infrastructure
 {
     public static class ValidIdParser
     {

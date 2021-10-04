@@ -1,6 +1,6 @@
 using System;
 
-namespace BLL
+namespace Infrastructure
 {
     public static class MySimpleMath
     {
