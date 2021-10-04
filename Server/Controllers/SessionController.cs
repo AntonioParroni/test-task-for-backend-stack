@@ -1,11 +1,9 @@
-using System.Collections.Generic;
 using System.Text.Json.Nodes;
-using BLL;
 using BLL.DapperRepo;
-using DTO;
-using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+#pragma warning disable 8629
+#pragma warning disable 8604
 
 #nullable enable
 

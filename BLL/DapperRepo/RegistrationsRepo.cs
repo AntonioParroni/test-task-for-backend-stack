@@ -7,6 +7,7 @@ using Dapper;
 using DTO;
 using Infrastructure;
 using Microsoft.Data.SqlClient;
+#pragma warning disable 8629
 
 namespace BLL.DapperRepo
 {
@@ -18,20 +19,20 @@ namespace BLL.DapperRepo
 
     public class RegistrationsRepository : IRegistrationsRepository
     {
-        string connectionString = null;
+        string? connectionString;
 
-        public RegistrationsRepository(string conn)
+        public RegistrationsRepository(string? conn)
         {
             connectionString = conn;
         }
-        
+
         public List<CleanByMonth> GetRegistrationByCurrentMonth()
         {
             List<CleanByMonth> infoListToReturn = new();
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 int currMonth = DateTime.Today.Month;
-                var crudeData =  db.Query<RegistrationCountByMonth>(
+                var crudeData = db.Query<RegistrationCountByMonth>(
                         $"SELECT * FROM RegistrationCountByMonth WHERE Month = {currMonth}")
                     .ToList();
                 foreach (var crudeInfo in crudeData)
@@ -43,6 +44,7 @@ namespace BLL.DapperRepo
                     infoListToReturn.Add(item);
                 }
             }
+
             return infoListToReturn;
         }
 
@@ -65,7 +67,8 @@ namespace BLL.DapperRepo
                     Provision info = new Provision();
                     info.type = db.Query<DeviceType>(
                             $"SELECT DeviceName FROM DeviceTypes WHERE DeviceID = {crudeInfo.DeviceType.Value}")
-                        .FirstOrDefault().DeviceName;
+                        .FirstOrDefault()
+                        .DeviceName;
                     info.value = crudeInfo.NumberOfUsers;
                     specificData.Add(info);
                     if (crudeInfo.NumberOfUsers != null)
@@ -73,8 +76,10 @@ namespace BLL.DapperRepo
                         returnInfo.registeredUsers += crudeInfo.NumberOfUsers.Value;
                     }
                 }
+
                 returnInfo.registeredDevices = specificData;
             }
+
             return returnInfo;
         }
     }
