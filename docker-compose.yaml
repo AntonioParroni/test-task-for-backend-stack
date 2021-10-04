@@ -3,7 +3,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile.app
+      dockerfile: DockerfileApp
     ports:
       - "8000:80"
     depends_on:
@@ -11,17 +11,17 @@ services:
   db:
     build:
       context: .
-      dockerfile: Dockerfile.db
+      dockerfile: DockerfileDb
     environment:
       SA_PASSWORD: "Your_password123"
       ACCEPT_EULA: "Y"
   db-migrations:
     build: 
       context: .
-      dockerfile: Dockerfile.migration
+      dockerfile: DockerfileMigration
     depends_on:
       - db
     restart: on-failure
-#    environment:
-#      DB_CONNECTION: "Server=db;Database=Contoso_Authentication_Logs;Trusted_Connection=True;User Id=sa;Password=Your_password123;"
+    environment:
+      DB_CONNECTION: "Server=db;Database=Contoso_Authentication_Logs;User Id=sa;Password=Your_password123;"
     
