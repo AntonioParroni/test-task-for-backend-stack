@@ -1,4 +1,4 @@
-using Infrastructure.DapperRepo;
+using BLL.DapperRepo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -22,8 +22,9 @@ namespace Server
         public void ConfigureServices(IServiceCollection services)
         {
             string connectionString = "Server=localhost;Database=Contoso_Authentication_Logs;User Id=sa;Password=Password123;";
-            services.AddTransient<IRegsByCurrentMonth, RegsByCurrentMonthRepository>(provider => new RegsByCurrentMonthRepository(connectionString));
-            
+            services.AddTransient<IRegistrationsRepository, RegistrationsRepository>(provider => new RegistrationsRepository(connectionString));
+            services.AddTransient<ISessionsRepository, SessionsRepository>(provider => new SessionsRepository(connectionString));
+
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "Server", Version = "v1" }); });
         }
