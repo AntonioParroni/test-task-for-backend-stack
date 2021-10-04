@@ -8,7 +8,7 @@
  - *An IDE to open the solution file
 
  # 2. Opening the solution 
-  It is located at /Server/Server.csproj
+  It is located at /MySolution.sln
 
   # 3. Setting up the credentials and API Key
  My default API Key value is located in appsettings.json file. And it is: 
@@ -29,12 +29,11 @@ And value as "qweasdzxc"
 
 
  # 4. Compiling the binaries
-  Open the /Server folder in terminal. 
-  And just type
-  ```
-  dotnet build
-  ```
-  # 5. Running Docker Compose
+1) Compile Server Project 
+2) Compile DbUp Project 
+ 
+ 
+# 5. Running Docker Compose
 
 
 Now that we have the binaries of this project. 
@@ -48,6 +47,7 @@ docker-compose build
 ```
 docker-compose up
 ```
+*please wait at least 40sec
 
 # 6. Running tests 
  Now our application should be online and running at 
@@ -57,10 +57,8 @@ docker-compose up
 
 --------------------
 ### Future To Do List 
- - Implement DI Container (Ninject)
- - Refactor logic operations into multiple and self-sustained services
+
  - Mock DB
- - Implement NUnit tests 
  - Implement HTTPS protocol
  - Implement secure and personal API Keys  
  - Deploy on AWS
