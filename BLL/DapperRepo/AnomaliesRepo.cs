@@ -5,7 +5,6 @@ using System.Linq;
 using DAL.Models;
 using Dapper;
 using DTO;
-using Infrastructure;
 using Microsoft.Data.SqlClient;
 
 namespace BLL.DapperRepo
