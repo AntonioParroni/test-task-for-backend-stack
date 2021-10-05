@@ -23,6 +23,7 @@ namespace Server.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
+            _logger.LogInformation("Processing request: {0}", Request.Path + HttpContext.Request.QueryString);
             var beautifulInfo = _repo.GetAllAnomalies();
             return new JsonResult(beautifulInfo);
         }

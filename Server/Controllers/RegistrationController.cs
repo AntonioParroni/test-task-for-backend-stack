@@ -21,6 +21,7 @@ namespace Server.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
+            _logger.LogInformation("Processing request: {0}", Request.Path + HttpContext.Request.QueryString);
             var returnInfo = _repo.GetRegistrationByCurrentMonth();
             if (returnInfo.Count == 0) return BadRequest(404);
             return new JsonResult(returnInfo);
@@ -29,6 +30,7 @@ namespace Server.Controllers
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
+            _logger.LogInformation("Processing request: {0}", Request.Path + HttpContext.Request.QueryString);
             if (!ValidIdParser.Check(id))
                 return StatusCode(404);
             var returnInfo = _repo.GetRegistrationByID(id);

@@ -26,6 +26,7 @@ namespace Server.Controllers
         [HttpGet]
         public ActionResult Get([FromQuery] string? startTime, [FromQuery] string? endTime)
         {
+            _logger.LogInformation("Processing request: {0}", Request.Path + HttpContext.Request.QueryString);
             if (endTime == null && startTime == null) // no params case, return all
             {
                 return new JsonResult(_repo.GetAllSessions());
