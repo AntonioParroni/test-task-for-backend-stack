@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using BLL;
+using BLL.DapperRepo;
+using DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Server.DTO;
-using Server.Logic;
 
 namespace Server.Controllers
 {
@@ -11,16 +12,19 @@ namespace Server.Controllers
     public class AnomaliesController : ControllerBase
     {
         private readonly ILogger<AnomaliesController> _logger;
+        private IAnomaliesRepository _repo;
 
-        public AnomaliesController(ILogger<AnomaliesController> logger)
+        public AnomaliesController(ILogger<AnomaliesController> logger, IAnomaliesRepository repo)
         {
             _logger = logger;
+            _repo = repo;
         }
 
         [HttpGet]
         public ActionResult GetAll()
         {
-            var beautifulInfo = (List<CleanConcurrentLogins>)new Strategy(new AnomaliesReturnAll()).Execute();
+            _logger.LogInformation("Processing request: {0}", Request.Path + HttpContext.Request.QueryString);
+            var beautifulInfo = _repo.GetAllAnomalies();
             return new JsonResult(beautifulInfo);
         }
     }

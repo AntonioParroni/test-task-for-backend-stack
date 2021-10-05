@@ -1,0 +1,6 @@
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+COPY DbUp/bin/Debug/net6.0/ ./
+WORKDIR ./
+CMD ["sh", "-c", "dotnet DbUp.dll \"${DB_CONNECTION}\""]
+
+#ENTRYPOINT ["dotnet", "DbUp.dll \"${DB_CONNECTION}\""]

@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: DockerfileApp
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+  db:
+    build:
+      context: .
+      dockerfile: DockerfileDb
+    environment:
+      SA_PASSWORD: "Your_password123"
+      ACCEPT_EULA: "Y"
+  db-migrations:
+    build: 
+      context: .
+      dockerfile: DockerfileMigration
+    depends_on:
+      - db
+    restart: on-failure
+    environment:
+      DB_CONNECTION: "Server=db;Database=Contoso_Authentication_Logs;User Id=sa;Password=Your_password123;"
+    

@@ -1,8 +1,7 @@
-using System.Collections.Generic;
+using BLL.DapperRepo;
+using BLL.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Server.DTO;
-using Server.Logic;
 
 namespace Server.Controllers
 {
@@ -11,16 +10,19 @@ namespace Server.Controllers
     public class RegistrationController : ControllerBase
     {
         private readonly ILogger<RegistrationController> _logger;
+        private IRegistrationsRepository _repo;
 
-        public RegistrationController(ILogger<RegistrationController> logger)
+        public RegistrationController(ILogger<RegistrationController> logger, IRegistrationsRepository repo)
         {
             _logger = logger;
+            _repo = repo;
         }
 
         [HttpGet]
         public ActionResult GetAll()
         {
-            var returnInfo = (List<CleanByMonth>)new Strategy(new RegistrationByMonthGetAll()).Execute();
+            _logger.LogInformation("Processing request: {0}", Request.Path + HttpContext.Request.QueryString);
+            var returnInfo = _repo.GetRegistrationByCurrentMonth();
             if (returnInfo.Count == 0) return BadRequest(404);
             return new JsonResult(returnInfo);
         }
@@ -28,9 +30,10 @@ namespace Server.Controllers
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
+            _logger.LogInformation("Processing request: {0}", Request.Path + HttpContext.Request.QueryString);
             if (!ValidIdParser.Check(id))
                 return StatusCode(404);
-            var returnInfo = (CleanWithBoth)new Strategy(new RegistrationByMonthGetByID()).Execute(id);
+            var returnInfo = _repo.GetRegistrationByID(id);
             if (returnInfo.registeredUsers == 0) return BadRequest(404);
             return new JsonResult(returnInfo);
         }
