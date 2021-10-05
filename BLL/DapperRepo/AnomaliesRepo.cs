@@ -7,6 +7,7 @@ using Dapper;
 using DTO;
 using Microsoft.Data.SqlClient;
 #pragma warning disable 8629
+#pragma warning disable 8602
 
 namespace BLL.DapperRepo
 {

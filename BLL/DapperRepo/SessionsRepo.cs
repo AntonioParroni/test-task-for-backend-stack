@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using BLL.Utils;
 using DAL.Models;
 using Dapper;
 using DTO;
-using Infrastructure;
 using Microsoft.Data.SqlClient;
 #pragma warning disable 8629
+#pragma warning disable 8602
 
 namespace BLL.DapperRepo
 {
@@ -143,6 +144,7 @@ namespace BLL.DapperRepo
                 foreach (var info in crudeData)
                 {
                     BySessionHour value = new BySessionHour();
+
                     string dateStr = info.Date.ToString().Remove(10);
                     int year = int.Parse(dateStr.Substring(dateStr.Length - 4));
                     int month = int.Parse(dateStr.Substring(0, 2));

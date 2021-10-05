@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using BLL.Utils;
 using DAL.Models;
 using Dapper;
 using DTO;
-using Infrastructure;
 using Microsoft.Data.SqlClient;
 #pragma warning disable 8629
+#pragma warning disable 8602
 
 namespace BLL.DapperRepo
 {

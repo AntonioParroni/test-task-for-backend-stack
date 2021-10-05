@@ -1,6 +1,6 @@
 using System;
 
-namespace Infrastructure
+namespace BLL.Utils
 {
     public static class Extenders
     {
