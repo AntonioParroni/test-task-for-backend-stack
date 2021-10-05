@@ -28,6 +28,12 @@ namespace Server
         {
 <<<<<<< Updated upstream
 =======
+            // string connectionString = "Server=localhost;Database=Contoso_Authentication_Logs;User Id=sa;Password=Password123;";
+            string connectionString = "Server=db;Database=Contoso_Authentication_Logs;User Id=sa;Password=Your_password123;";
+
+            services.AddTransient<IRegistrationsRepository, RegistrationsRepository>(provider => new RegistrationsRepository(connectionString));
+            services.AddTransient<ISessionsRepository, SessionsRepository>(provider => new SessionsRepository(connectionString));
+            services.AddTransient<IAnomaliesRepository, AnomaliesRepository>(provider => new AnomaliesRepository(connectionString));
 
             
 >>>>>>> Stashed changes
