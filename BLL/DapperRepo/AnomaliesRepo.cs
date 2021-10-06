@@ -6,6 +6,7 @@ using DAL.Models;
 using Dapper;
 using DTO;
 using Microsoft.Data.SqlClient;
+
 #pragma warning disable 8629
 #pragma warning disable 8602
 
@@ -30,34 +31,17 @@ namespace BLL.DapperRepo
             List<CleanConcurrentLogins> returnInfo = new List<CleanConcurrentLogins>();
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                var crudeAnomalyConcurrentyLogins =
-                    db.Query<ConcurrentUniqueSessionsWithMultipleDevice>(
-                            $"SELECT * FROM ConcurrentUniqueSessionsWithMultipleDevices")
-                        .ToList();
+                var sql =
+                    $"SELECT CR.UserName, CR.DeviceName AS device, CR.LoginTS AS loginTime, UCBD.Country AS country, UCBD.LoginTS AS LoginTime FROM ConcurrentUniqueSessionsWithMultipleDevices CR" +
+                    " LEFT JOIN dbo.UniqueCountriesByDay UCBD on CR.UserName = UCBD.UserName AND UCBD.LoginTS = CR.LoginTS";
 
-                var crudeAnomalyCountriesLogins =
-                    db.Query<UniqueCountriesByDay>($"SELECT * FROM UniqueCountriesByDay").ToList();
-
-                foreach (var concurrentLoginElement in crudeAnomalyConcurrentyLogins)
-                {
-                    CleanConcurrentLogins returnElement = new CleanConcurrentLogins();
-                    returnElement.userName = concurrentLoginElement.UserName;
-                    returnElement.device = concurrentLoginElement.DeviceName;
-                    returnElement.loginTime = (DateTime)concurrentLoginElement.LoginTs;
-                    foreach (var countriesLoginElement in crudeAnomalyCountriesLogins)
+                var item = db.Query<CleanConcurrentLogins, CleanCountryLogin, CleanConcurrentLogins>(sql, (p, c) =>
                     {
-                        if (concurrentLoginElement.UserName == countriesLoginElement.UserName &&
-                            concurrentLoginElement.LoginTs == countriesLoginElement.LoginTs)
-                        {
-                            CleanCountryLogin unexpectedLogin = new CleanCountryLogin();
-                            unexpectedLogin.country = countriesLoginElement.Country;
-                            unexpectedLogin.loginTime = (DateTime)countriesLoginElement.LoginTs;
-                            returnElement.unexpectedLogin = unexpectedLogin;
-                        }
-                    }
-
-                    returnInfo.Add(returnElement);
-                }
+                        p.unexpectedLogin = c;
+                        return p;
+                    }, splitOn: "Country")
+                    .ToList();
+                returnInfo = item;
             }
 
             return returnInfo;
