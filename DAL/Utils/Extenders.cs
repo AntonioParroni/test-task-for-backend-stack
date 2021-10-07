@@ -1,6 +1,6 @@
 using System;
 
-namespace BLL.Utils
+namespace DAL.Utils
 {
     public static class Extenders
     {

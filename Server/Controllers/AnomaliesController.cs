@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using BLL;
 using DAL.DapperRepo;
-using DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 

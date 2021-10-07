@@ -6,6 +6,7 @@ using BLL.Utils;
 using Dapper;
 using DTO;
 using Microsoft.Data.SqlClient;
+using MySimpleMath = DAL.Utils.MySimpleMath;
 
 #pragma warning disable 8604
 #pragma warning disable 8629
