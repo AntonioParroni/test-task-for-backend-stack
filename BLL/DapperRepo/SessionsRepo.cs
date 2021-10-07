@@ -34,34 +34,48 @@ namespace BLL.DapperRepo
             List<BySessionHour> beautifulReturnInfo = new List<BySessionHour>();
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                var crudeData = db.Query<TotalSessionDurationByHour>(
-                        $"SELECT Date, Hour, TotalSessionDurationForHourInMins, TotalSessionDuration FROM TotalSessionDurationByHour")
-                    .ToList();
-                if (crudeData.Count == 0) return beautifulReturnInfo;
+                string sql =
+                    "SELECT TSDH.Date, TSDH.Hour, TSDH.TotalSessionDurationForHourInMins AS totalTimeForHour, TSDH.TotalSessionDuration AS qumulativeForHour, " +
+                    " CSEH.NumberOfUsers AS conccurentSessions FROM TotalSessionDurationByHour TSDH " +
+                    " LEFT JOIN ConcurrentSessionsEveryHour CSEH ON dateadd(hour, TSDH.Hour, cast(TSDH.Date as datetime)) = CSEH.Hour";
 
-                foreach (var info in crudeData)
-                {
-                    BySessionHour value = new BySessionHour();
-                    string dateStr = info.Date.ToString().Remove(10);
-                    int year = int.Parse(dateStr.Substring(dateStr.Length - 4));
-                    int month = int.Parse(dateStr.Substring(0, 2));
-                    int day = int.Parse(dateStr.Substring(3, 2));
-                    dateStr = dateStr.Substring(dateStr.Length - 4) + "-" + dateStr.Substring(0, 2) + "-" +
-                              dateStr.Substring(3, 2);
-                    value.date = dateStr;
-                    value.hour = info.Hour;
-                    value.qumulativeForHour = info.TotalSessionDurationForHourInMins;
-                    value.totalTimeForHour = info.TotalSessionDuration;
-                    DateTime oldTime = new DateTime(year, month, day, (int)info.Hour, 0, 0); // this is the only way..
-                    string sqlFormattedDate = oldTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                    string query =
-                        $"SELECT NumberOfUsers FROM ConcurrentSessionsEveryHour WHERE Hour = '{sqlFormattedDate}'";
-                    int? conccurentSessions = int.Parse(db.Query<int>(query).FirstOrDefault().ToString());
-                    value.conccurentSessions = conccurentSessions;
-                    beautifulReturnInfo.Add(value);
-                }
+                beautifulReturnInfo = db.Query<BySessionHour>(sql)
+                    .ToList();
+                
+                // foreach (var info in crudeData)
+                // {
+                //     BySessionHour value = new BySessionHour();
+                //     string dateStr = info.Date.ToString().Remove(10);
+                //     int year = int.Parse(dateStr.Substring(dateStr.Length - 4));
+                //     int month = int.Parse(dateStr.Substring(0, 2));
+                //     int day = int.Parse(dateStr.Substring(3, 2));
+                //     dateStr = dateStr.Substring(dateStr.Length - 4) + "-" + dateStr.Substring(0, 2) + "-" +
+                //               dateStr.Substring(3, 2);
+                //     value.date = dateStr;
+                //     value.hour = info.Hour;
+                //     value.qumulativeForHour = info.TotalSessionDurationForHourInMins;
+                //     value.totalTimeForHour = info.TotalSessionDuration;
+                //     DateTime oldTime = new DateTime(year, month, day, (int)info.Hour, 0, 0); // this is the only way..
+                //     string sqlFormattedDate = oldTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                //     string query =
+                //         $"SELECT NumberOfUsers FROM ConcurrentSessionsEveryHour WHERE Hour = '{sqlFormattedDate}'";
+                //     int? conccurentSessions = int.Parse(db.Query<int>(query).FirstOrDefault().ToString());
+                //     value.conccurentSessions = conccurentSessions;
+                //     beautifulReturnInfo.Add(value);
+                // }
             }
 
+            if (beautifulReturnInfo.Count == 0)
+                return beautifulReturnInfo;
+            foreach (var session in beautifulReturnInfo)
+            {
+                if (session.conccurentSessions == null)
+                {
+                    session.conccurentSessions = 0;
+                }
+                DateTime sessionDate = DateTime.Parse(session.date);
+                session.date = sessionDate.ToString("yyyy-MM-dd");
+            }
             return beautifulReturnInfo;
         }
 
