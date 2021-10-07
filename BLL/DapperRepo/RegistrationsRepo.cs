@@ -7,7 +7,8 @@ using DAL.Models;
 using Dapper;
 using DTO;
 using Microsoft.Data.SqlClient;
-
+#pragma warning disable 8600
+#pragma warning disable 8603
 #pragma warning disable 8629
 #pragma warning disable 8602
 
@@ -60,7 +61,7 @@ namespace BLL.DapperRepo
                 var item = db.Query<CleanWithBoth, Provision, CleanWithBoth>(sql, (p, c) =>
                     {
                         specificData.Add(c);
-                        p.registeredDevices = specificData; // kinda ugly, but no other way..
+                        p.registeredDevices = specificData;
                         return p;
                     }, splitOn: "value")
                     .FirstOrDefault();

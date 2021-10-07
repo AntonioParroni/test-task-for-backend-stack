@@ -7,6 +7,8 @@ using DAL.Models;
 using Dapper;
 using DTO;
 using Microsoft.Data.SqlClient;
+
+#pragma warning disable 8604
 #pragma warning disable 8629
 #pragma warning disable 8602
 
@@ -39,43 +41,21 @@ namespace BLL.DapperRepo
                     " CSEH.NumberOfUsers AS conccurentSessions FROM TotalSessionDurationByHour TSDH " +
                     " LEFT JOIN ConcurrentSessionsEveryHour CSEH ON dateadd(hour, TSDH.Hour, cast(TSDH.Date as datetime)) = CSEH.Hour";
 
-                beautifulReturnInfo = db.Query<BySessionHour>(sql)
-                    .ToList();
-                
-                // foreach (var info in crudeData)
-                // {
-                //     BySessionHour value = new BySessionHour();
-                //     string dateStr = info.Date.ToString().Remove(10);
-                //     int year = int.Parse(dateStr.Substring(dateStr.Length - 4));
-                //     int month = int.Parse(dateStr.Substring(0, 2));
-                //     int day = int.Parse(dateStr.Substring(3, 2));
-                //     dateStr = dateStr.Substring(dateStr.Length - 4) + "-" + dateStr.Substring(0, 2) + "-" +
-                //               dateStr.Substring(3, 2);
-                //     value.date = dateStr;
-                //     value.hour = info.Hour;
-                //     value.qumulativeForHour = info.TotalSessionDurationForHourInMins;
-                //     value.totalTimeForHour = info.TotalSessionDuration;
-                //     DateTime oldTime = new DateTime(year, month, day, (int)info.Hour, 0, 0); // this is the only way..
-                //     string sqlFormattedDate = oldTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                //     string query =
-                //         $"SELECT NumberOfUsers FROM ConcurrentSessionsEveryHour WHERE Hour = '{sqlFormattedDate}'";
-                //     int? conccurentSessions = int.Parse(db.Query<int>(query).FirstOrDefault().ToString());
-                //     value.conccurentSessions = conccurentSessions;
-                //     beautifulReturnInfo.Add(value);
-                // }
+                beautifulReturnInfo = db.Query<BySessionHour>(sql).ToList();
             }
 
-            if (beautifulReturnInfo.Count == 0)
-                return beautifulReturnInfo;
+            if (beautifulReturnInfo.Count == 0) return beautifulReturnInfo;
             foreach (var session in beautifulReturnInfo)
             {
                 if (session.conccurentSessions == null)
                 {
                     session.conccurentSessions = 0;
                 }
+
                 DateTime sessionDate = DateTime.Parse(session.date);
                 session.date = sessionDate.ToString("yyyy-MM-dd");
             }
+
             return beautifulReturnInfo;
         }
 
@@ -93,38 +73,31 @@ namespace BLL.DapperRepo
                 return beautifulReturnInfo;
             }
 
+            DateTime onlyDate = new DateTime(fromTimeDate.Year, fromTimeDate.Month, fromTimeDate.Day);
+            int hour = fromTimeDate.Hour;
+            string sqlFormattedDate = onlyDate.ToString("yyyy-MM-dd");
+
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                DateTime onlyDate = new DateTime(fromTimeDate.Year, fromTimeDate.Month, fromTimeDate.Day);
-                int hour = fromTimeDate.Hour;
-                string sqlFormattedDate = onlyDate.ToString("yyyy-MM-dd");
-                string queryStr =
-                    $"SELECT Date, Hour, TotalSessionDurationForHourInMins, TotalSessionDuration FROM TotalSessionDurationByHour" +
-                    $" WHERE Date = '{sqlFormattedDate}' AND Hour >= {hour} OR Date > '{sqlFormattedDate}'";
-                var crudeData = db.Query<TotalSessionDurationByHour>(queryStr).ToList();
-                if (crudeData.Count == 0) return beautifulReturnInfo;
+                string sql =
+                    "SELECT TSDH.Date, TSDH.Hour, TSDH.TotalSessionDurationForHourInMins AS totalTimeForHour, TSDH.TotalSessionDuration AS qumulativeForHour, " +
+                    " CSEH.NumberOfUsers AS conccurentSessions FROM TotalSessionDurationByHour TSDH " +
+                    " LEFT JOIN ConcurrentSessionsEveryHour CSEH ON dateadd(hour, TSDH.Hour, cast(TSDH.Date as datetime)) = CSEH.Hour" +
+                    $" WHERE TSDH.Date = '{sqlFormattedDate}' AND TSDH.Hour >= {hour} OR TSDH.Date > '{sqlFormattedDate}'";
 
-                foreach (var info in crudeData)
+                beautifulReturnInfo = db.Query<BySessionHour>(sql).ToList();
+            }
+
+            if (beautifulReturnInfo.Count == 0) return beautifulReturnInfo;
+            foreach (var session in beautifulReturnInfo)
+            {
+                if (session.conccurentSessions == null)
                 {
-                    BySessionHour value = new BySessionHour();
-                    string dateStr = info.Date.ToString().Remove(10);
-                    int year = int.Parse(dateStr.Substring(dateStr.Length - 4));
-                    int month = int.Parse(dateStr.Substring(0, 2));
-                    int day = int.Parse(dateStr.Substring(3, 2));
-                    dateStr = dateStr.Substring(dateStr.Length - 4) + "-" + dateStr.Substring(0, 2) + "-" +
-                              dateStr.Substring(3, 2);
-                    value.date = dateStr;
-                    value.hour = info.Hour;
-                    value.qumulativeForHour = info.TotalSessionDurationForHourInMins;
-                    value.totalTimeForHour = info.TotalSessionDuration;
-                    DateTime oldTime = new DateTime(year, month, day, (int)info.Hour, 0, 0);
-                    string sqlFormattedDate2 = oldTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                    string query =
-                        $"SELECT NumberOfUsers FROM ConcurrentSessionsEveryHour WHERE Hour = '{sqlFormattedDate2}'";
-                    int? conccurentSessions = int.Parse(db.Query<int>(query).FirstOrDefault().ToString());
-                    value.conccurentSessions = conccurentSessions;
-                    beautifulReturnInfo.Add(value);
+                    session.conccurentSessions = 0;
                 }
+
+                DateTime sessionDate = DateTime.Parse(session.date);
+                session.date = sessionDate.ToString("yyyy-MM-dd");
             }
 
             return beautifulReturnInfo;
@@ -144,39 +117,31 @@ namespace BLL.DapperRepo
                 return beautifulReturnInfo;
             }
 
+            DateTime onlyDate = new DateTime(tillTimeDate.Year, tillTimeDate.Month, tillTimeDate.Day);
+            int hour = tillTimeDate.Hour;
+            string sqlFormattedDate = onlyDate.ToString("yyyy-MM-dd");
+
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                DateTime onlyDate = new DateTime(tillTimeDate.Year, tillTimeDate.Month, tillTimeDate.Day);
-                int hour = tillTimeDate.Hour;
-                string sqlFormattedDate = onlyDate.ToString("yyyy-MM-dd");
-                string queryStr =
-                    $"SELECT Date, Hour, TotalSessionDurationForHourInMins, TotalSessionDuration FROM TotalSessionDurationByHour" +
-                    $" WHERE Date = '{sqlFormattedDate}' AND Hour <= {hour} OR Date < '{sqlFormattedDate}'";
-                var crudeData = db.Query<TotalSessionDurationByHour>(queryStr).ToList();
-                if (crudeData.Count == 0) return beautifulReturnInfo;
+                string sql =
+                    "SELECT TSDH.Date, TSDH.Hour, TSDH.TotalSessionDurationForHourInMins AS totalTimeForHour, TSDH.TotalSessionDuration AS qumulativeForHour, " +
+                    " CSEH.NumberOfUsers AS conccurentSessions FROM TotalSessionDurationByHour TSDH " +
+                    " LEFT JOIN ConcurrentSessionsEveryHour CSEH ON dateadd(hour, TSDH.Hour, cast(TSDH.Date as datetime)) = CSEH.Hour" +
+                    $" WHERE TSDH.Date = '{sqlFormattedDate}' AND TSDH.Hour <= {hour} OR TSDH.Date < '{sqlFormattedDate}'";
 
-                foreach (var info in crudeData)
+                beautifulReturnInfo = db.Query<BySessionHour>(sql).ToList();
+            }
+
+            if (beautifulReturnInfo.Count == 0) return beautifulReturnInfo;
+            foreach (var session in beautifulReturnInfo)
+            {
+                if (session.conccurentSessions == null)
                 {
-                    BySessionHour value = new BySessionHour();
-
-                    string dateStr = info.Date.ToString().Remove(10);
-                    int year = int.Parse(dateStr.Substring(dateStr.Length - 4));
-                    int month = int.Parse(dateStr.Substring(0, 2));
-                    int day = int.Parse(dateStr.Substring(3, 2));
-                    dateStr = dateStr.Substring(dateStr.Length - 4) + "-" + dateStr.Substring(0, 2) + "-" +
-                              dateStr.Substring(3, 2);
-                    value.date = dateStr;
-                    value.hour = info.Hour;
-                    value.qumulativeForHour = info.TotalSessionDurationForHourInMins;
-                    value.totalTimeForHour = info.TotalSessionDuration;
-                    DateTime oldTime = new DateTime(year, month, day, (int)info.Hour, 0, 0);
-                    string sqlFormattedDate2 = oldTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                    string query =
-                        $"SELECT NumberOfUsers FROM ConcurrentSessionsEveryHour WHERE Hour = '{sqlFormattedDate2}'";
-                    int? conccurentSessions = int.Parse(db.Query<int>(query).FirstOrDefault().ToString());
-                    value.conccurentSessions = conccurentSessions;
-                    beautifulReturnInfo.Add(value);
+                    session.conccurentSessions = 0;
                 }
+
+                DateTime sessionDate = DateTime.Parse(session.date);
+                session.date = sessionDate.ToString("yyyy-MM-dd");
             }
 
             return beautifulReturnInfo;
@@ -199,47 +164,37 @@ namespace BLL.DapperRepo
                 return beautifulReturnInfo;
             }
 
+            DateTime tillDate = new DateTime(tillTimeDate.Year, tillTimeDate.Month, tillTimeDate.Day);
+            DateTime fromDate = new DateTime(fromTimeDate.Year, fromTimeDate.Month, fromTimeDate.Day);
+
+            int fromHour = fromTimeDate.Hour;
+            int tillHour = tillTimeDate.Hour;
+
+            string sqlFormattedFromDate = fromDate.ToString("yyyy-MM-dd");
+            string sqlFormattedTillDate = tillDate.ToString("yyyy-MM-dd");
+
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                DateTime tillDate = new DateTime(tillTimeDate.Year, tillTimeDate.Month, tillTimeDate.Day);
-                DateTime fromDate = new DateTime(fromTimeDate.Year, fromTimeDate.Month, fromTimeDate.Day);
+                string sql =
+                    "SELECT TSDH.Date, TSDH.Hour, TSDH.TotalSessionDurationForHourInMins AS totalTimeForHour, TSDH.TotalSessionDuration AS qumulativeForHour, " +
+                    " CSEH.NumberOfUsers AS conccurentSessions FROM TotalSessionDurationByHour TSDH " +
+                    " LEFT JOIN ConcurrentSessionsEveryHour CSEH ON dateadd(hour, TSDH.Hour, cast(TSDH.Date as datetime)) = CSEH.Hour" +
+                    $" WHERE (TSDH.Date = '{sqlFormattedFromDate}' AND TSDH.Hour >= {fromHour} OR TSDH.Date > '{sqlFormattedFromDate}')" +
+                    $" AND (TSDH.Date = '{sqlFormattedTillDate}' AND TSDH.Hour <= {tillHour} OR TSDH.Date < '{tillDate}')";
 
-                int fromHour = fromTimeDate.Hour;
-                int tillHour = tillTimeDate.Hour;
+                beautifulReturnInfo = db.Query<BySessionHour>(sql).ToList();
+            }
 
-                string sqlFormattedFromDate = fromDate.ToString("yyyy-MM-dd");
-                string sqlFormattedTillDate = tillDate.ToString("yyyy-MM-dd");
-
-                string queryStr =
-                    $"SELECT Date, Hour, TotalSessionDurationForHourInMins, TotalSessionDuration FROM TotalSessionDurationByHour" +
-                    $" WHERE (Date = '{sqlFormattedFromDate}' AND Hour >= {fromHour} OR Date > '{sqlFormattedFromDate}')" +
-                    $" AND (Date = '{sqlFormattedTillDate}' AND Hour <= {tillHour} OR Date < '{tillDate}')";
-
-                var crudeData = db.Query<TotalSessionDurationByHour>(queryStr).ToList();
-
-                if (crudeData.Count == 0) return beautifulReturnInfo;
-
-                foreach (var info in crudeData)
+            if (beautifulReturnInfo.Count == 0) return beautifulReturnInfo;
+            foreach (var session in beautifulReturnInfo)
+            {
+                if (session.conccurentSessions == null)
                 {
-                    BySessionHour value = new BySessionHour();
-                    string dateStr = info.Date.ToString().Remove(10);
-                    int year = int.Parse(dateStr.Substring(dateStr.Length - 4));
-                    int month = int.Parse(dateStr.Substring(0, 2));
-                    int day = int.Parse(dateStr.Substring(3, 2));
-                    dateStr = dateStr.Substring(dateStr.Length - 4) + "-" + dateStr.Substring(0, 2) + "-" +
-                              dateStr.Substring(3, 2);
-                    value.date = dateStr;
-                    value.hour = info.Hour;
-                    value.qumulativeForHour = info.TotalSessionDurationForHourInMins;
-                    value.totalTimeForHour = info.TotalSessionDuration;
-                    DateTime oldTime = new DateTime(year, month, day, (int)info.Hour, 0, 0);
-                    string sqlFormattedDate2 = oldTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                    string query =
-                        $"SELECT NumberOfUsers FROM ConcurrentSessionsEveryHour WHERE Hour = '{sqlFormattedDate2}'";
-                    int? conccurentSessions = int.Parse(db.Query<int>(query).FirstOrDefault().ToString());
-                    value.conccurentSessions = conccurentSessions;
-                    beautifulReturnInfo.Add(value);
+                    session.conccurentSessions = 0;
                 }
+
+                DateTime sessionDate = DateTime.Parse(session.date);
+                session.date = sessionDate.ToString("yyyy-MM-dd");
             }
 
             return beautifulReturnInfo;
