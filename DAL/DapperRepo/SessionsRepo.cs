@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using BLL.Utils;
-using DAL.Models;
 using Dapper;
 using DTO;
 using Microsoft.Data.SqlClient;
@@ -12,7 +11,7 @@ using Microsoft.Data.SqlClient;
 #pragma warning disable 8629
 #pragma warning disable 8602
 
-namespace BLL.DapperRepo
+namespace DAL.DapperRepo
 {
     public interface ISessionsRepository
     {
@@ -84,7 +83,7 @@ namespace BLL.DapperRepo
                     " CSEH.NumberOfUsers AS conccurentSessions FROM TotalSessionDurationByHour TSDH " +
                     " LEFT JOIN ConcurrentSessionsEveryHour CSEH ON dateadd(hour, TSDH.Hour, cast(TSDH.Date as datetime)) = CSEH.Hour" +
                     $" WHERE TSDH.Date = '{sqlFormattedDate}' AND TSDH.Hour >= {hour} OR TSDH.Date > '{sqlFormattedDate}'";
-
+                
                 beautifulReturnInfo = db.Query<BySessionHour>(sql).ToList();
             }
 

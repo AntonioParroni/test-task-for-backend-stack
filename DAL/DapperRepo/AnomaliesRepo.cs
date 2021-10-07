@@ -2,15 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using DAL.Models;
+using BLL.Utils;
 using Dapper;
 using DTO;
 using Microsoft.Data.SqlClient;
 
+#pragma warning disable 8604
 #pragma warning disable 8629
 #pragma warning disable 8602
 
-namespace BLL.DapperRepo
+namespace DAL.DapperRepo
 {
     public interface IAnomaliesRepository
     {
