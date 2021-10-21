@@ -65,3 +65,5 @@ docker-compose up
  - Configure CD pipeline
 
 https://hub.docker.com/repository/docker/savonarolla/my-test-repo
+
+:D
