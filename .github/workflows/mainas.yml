@@ -1,0 +1,22 @@
+name: SecurityScan
+
+on:
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
+    branches: [ "master", "main" ]
+
+jobs:
+  SecurityScan:
+    name: SecurityScan
+    runs-on: ubuntu-latest
+    steps:
+    
+    - name: Run Infer#      
+      uses: microsoft/infersharpaction@v1.1
+      id: runinfersharp
+      with:
+        binary-path: '<path to the binary directory containing .dlls and .pdbs>'
+    - name: Infer# analysis results
+      run: echo "${{ steps.runinfersharp.outputs.results }}"
+     
