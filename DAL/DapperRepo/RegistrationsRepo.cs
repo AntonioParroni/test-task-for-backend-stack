@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using BLL.Utils;
+using DAL.Utils;
 using Dapper;
 using DTO;
 using Microsoft.Data.SqlClient;

@@ -4,7 +4,7 @@ namespace DAL.Utils
 {
     public static class MySimpleMath
     {
-        public static int TakeNDigits(int number, int N)
+        public static int TakeNDigits(this int number, int N)
         {
             number = Math.Abs(number);
             if (number == 0) return number;
